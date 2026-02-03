@@ -1,17 +1,19 @@
 ---
 import LabelBadge from "./LabelBadge.astro";
+import HoverTooltip from "./HoverTooltip.astro";
 
 interface Props {
     title?: string;
     color?: "yellow" | "green" | "pink" | "purple" | "blue";
     class?: string;
+    contentId?: string;
 }
 
-const { title, color = "blue", class: className = "" } = Astro.props;
+const { title, color = "blue", class: className = "", contentId } = Astro.props;
 ---
 
 <div
-    class={`relative bg-gray-100/50 rounded-xl border border-gray-200 p-8 pt-10 ${className}`}
+    class={`group relative bg-gray-100/50 rounded-xl border border-gray-200 p-8 pt-10 ${className}`}
 >
     {
         title && (
@@ -20,6 +22,8 @@ const { title, color = "blue", class: className = "" } = Astro.props;
             </div>
         )
     }
+
+    {contentId && <HoverTooltip contentId={contentId} />}
 
     <div
         class="w-full h-full flex flex-col items-center justify-center relative z-0"
