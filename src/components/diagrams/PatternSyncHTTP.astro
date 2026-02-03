@@ -1,32 +1,73 @@
 ---
 import CardWrapper from "../atoms/CardWrapper.astro";
 import Icon from "../atoms/Icon.astro";
+import ConnectorLine from "../atoms/ConnectorLine.astro";
 ---
 
 <CardWrapper title="Request Response over HTTP" color="pink">
-    <div class="flex items-center justify-between w-full px-8 gap-4">
+    <div class="flex items-center w-full px-8 gap-4 h-40 relative">
         <!-- Browser -->
-        <div class="z-10">
+        <div class="z-10 absolute left-4 top-1/2 -translate-y-1/2">
             <Icon name="browser" />
         </div>
 
-        <!-- API Connection -->
+        <!-- API Gateway (Center) -->
         <div
-            class="flex-1 border-b-2 border-dashed border-gray-400 relative mx-2 h-[2px]"
+            class="z-20 absolute left-[35%] top-1/2 -translate-x-1/2 -translate-y-1/2"
         >
-            <div
-                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20"
-            >
-                <Icon name="api" />
+            <Icon name="api" />
+        </div>
+
+        <!-- Server Stacks (Right) -->
+        <div
+            class="absolute right-4 top-0 bottom-0 flex flex-col justify-between py-2"
+        >
+            <!-- Top Stack -->
+            <div class="flex flex-col gap-1 items-center z-10">
+                <Icon name="server" />
+                <span class="text-[10px] font-bold mt-1 text-gray-500">Svc</span
+                >
+            </div>
+
+            <!-- Bottom Stack -->
+            <div class="flex flex-col gap-1 items-center z-10">
+                <Icon name="server" />
+                <span class="text-[10px] font-bold mt-1 text-gray-500">Svc</span
+                >
             </div>
         </div>
 
-        <!-- Server Stack -->
-        <div class="flex flex-col gap-1 items-center z-10">
-            <div class="w-8 h-4 bg-gray-500 rounded"></div>
-            <div class="w-8 h-4 bg-gray-500 rounded"></div>
-            <div class="w-8 h-4 bg-gray-500 rounded"></div>
-            <span class="text-[10px] font-bold mt-1 text-gray-500">Svc</span>
+        <!-- Arrows -->
+        <div class="absolute inset-0 pointer-events-none">
+            <!-- Browser -> API -->
+            <div class="absolute top-[45%] left-[15%] -translate-y-1/2">
+                <ConnectorLine
+                    width={80}
+                    rotate={0}
+                    isAnimate={true}
+                    color="#9CA3AF"
+                />
+            </div>
+
+            <!-- API -> Top Server -->
+            <div class="absolute top-[35%] left-[45%] -rotate-[15deg]">
+                <ConnectorLine
+                    width={200}
+                    rotate={0}
+                    isAnimate={true}
+                    color="#9CA3AF"
+                />
+            </div>
+
+            <!-- API -> Bottom Server -->
+            <div class="absolute bottom-[50%] left-[45%] rotate-[10deg]">
+                <ConnectorLine
+                    width={200}
+                    rotate={0}
+                    isAnimate={true}
+                    color="#9CA3AF"
+                />
+            </div>
         </div>
     </div>
 </CardWrapper>

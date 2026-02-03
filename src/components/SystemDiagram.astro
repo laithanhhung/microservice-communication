@@ -44,49 +44,51 @@ import ConnectorLine from "./atoms/ConnectorLine.astro";
 
             <!-- Central Hub Connections (Overlay) -->
             <div class="absolute inset-0 pointer-events-none z-0">
-                <!-- To Shared Data (Top Left) -->
+                <!-- To Shared Data (Top Left) - Yellow -->
                 <div
-                    class="absolute top-0 left-0 -translate-x-[20%] -translate-y-[80%] -rotate-[40deg]"
+                    class="absolute top-[20%] left-[15%] -translate-x-1/2 -translate-y-1/2"
                 >
                     <ConnectorLine
-                        width={200}
+                        width={250}
                         isAnimate={true}
-                        color="#FBBF24"
+                        color="#51a2ff"
+                        rotate={210}
                     />
                 </div>
 
-                <!-- To Event Driven (Top Center) -->
+                <!-- To Event Driven (Top Center) - Green -->
                 <div
-                    class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[80%] -rotate-90"
+                    class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
                 >
                     <ConnectorLine
-                        width={150}
+                        width={95}
                         isAnimate={true}
-                        color="#10B981"
+                        color="#51a2ff"
+                        rotate={-90}
                     />
                 </div>
 
-                <!-- To Async (Top Right) -->
+                <!-- To Async (Top Right) - Pink -->
                 <div
-                    class="absolute top-0 right-0 translate-x-[20%] -translate-y-[80%] rotate-[220deg]"
+                    class="absolute top-[20%] right-[15%] translate-x-1/2 -translate-y-1/2"
                 >
-                    <!-- Rotate is tricky without seeing. Let's approximate angle pointing top-right -->
                     <ConnectorLine
-                        width={200}
+                        width={250}
                         isAnimate={true}
-                        color="#EC4899"
-                        rotate={220}
+                        color="#51a2ff"
+                        rotate={-30}
                     />
                 </div>
 
-                <!-- To Sync HTTP (Bottom Right) -->
+                <!-- To Sync HTTP (Bottom Right) - Pink -->
                 <div
-                    class="absolute bottom-0 right-0 translate-x-[20%] translate-y-[50%] rotate-[45deg]"
+                    class="absolute bottom-[25%] right-[10%] translate-x-1/2 translate-y-1/2"
                 >
                     <ConnectorLine
-                        width={180}
+                        width={100}
                         isAnimate={true}
-                        color="#EC4899"
+                        color="#ad46ff"
+                        rotate={45}
                     />
                 </div>
             </div>

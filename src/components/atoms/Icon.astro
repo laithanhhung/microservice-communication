@@ -1,4 +1,6 @@
 ---
+import ServerDataNode from "../ServerDataNode.astro";
+
 interface Props {
     name:
         | "server"
@@ -18,9 +20,10 @@ const { name, class: className = "" } = Astro.props;
 <div class={`inline-flex items-center justify-center ${className}`}>
     {
         name === "server" && (
-            <div class="w-10 h-6 bg-gray-600 rounded relative shadow-sm">
-                <div class="absolute top-1 right-1 w-1.5 h-1.5 bg-green-400 rounded-full" />
-            </div>
+            // <div class="w-10 h-6 bg-gray-600 rounded relative shadow-sm">
+            //     <div class="absolute top-1 right-1 w-1.5 h-1.5 bg-green-400 rounded-full" />
+            // </div>
+            <ServerDataNode />
         )
     }
 
@@ -49,6 +52,32 @@ const { name, class: className = "" } = Astro.props;
         name === "message-broker" && (
             <div class="flex flex-col items-center">
                 <div class="w-16 h-12 border-2 border-pink-600 rounded-lg flex items-center justify-center bg-white z-20">
+                    <svg
+                        class="w-6 h-6 text-pink-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                    </svg>
+                    <svg
+                        class="w-6 h-6 text-pink-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                    </svg>
                     <svg
                         class="w-6 h-6 text-pink-600"
                         fill="none"
