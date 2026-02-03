@@ -1,0 +1,64 @@
+---
+import CardWrapper from "../atoms/CardWrapper.astro";
+import Icon from "../atoms/Icon.astro";
+import ConnectorLine from "../atoms/ConnectorLine.astro";
+---
+
+<CardWrapper title="Event-Driven with Message Broker" color="green">
+    <div class="flex items-center gap-12 w-full justify-center relative px-8">
+        <!-- Publisher -->
+        <div class="z-10 relative">
+            <Icon name="server" />
+            <span
+                class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-gray-500 font-bold"
+                >Publisher</span
+            >
+        </div>
+
+        <!-- Broker -->
+        <div class="z-10 relative">
+            <Icon name="message-broker" />
+        </div>
+
+        <!-- Subscribers -->
+        <div class="flex flex-col gap-4 z-10 relative">
+            <Icon name="server" />
+            <Icon name="server" />
+            <span
+                class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-gray-500 font-bold whitespace-nowrap"
+                >Subscribers</span
+            >
+        </div>
+
+        <!-- Connectors -->
+        <div class="absolute inset-0 pointer-events-none">
+            <!-- Pub to Broker -->
+            <div class="absolute top-1/2 left-[25%] -translate-y-1/2">
+                <ConnectorLine
+                    width={50}
+                    rotate={0}
+                    isAnimate={true}
+                    color="#10B981"
+                />
+            </div>
+            <!-- Broker to Sub 1 -->
+            <div class="absolute top-[35%] right-[25%] -rotate-[20deg]">
+                <ConnectorLine
+                    width={50}
+                    rotate={0}
+                    isAnimate={true}
+                    color="#10B981"
+                />
+            </div>
+            <!-- Broker to Sub 2 -->
+            <div class="absolute bottom-[35%] right-[25%] rotate-[20deg]">
+                <ConnectorLine
+                    width={50}
+                    rotate={0}
+                    isAnimate={true}
+                    color="#10B981"
+                />
+            </div>
+        </div>
+    </div>
+</CardWrapper>

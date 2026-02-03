@@ -1,0 +1,32 @@
+---
+import CardWrapper from "../atoms/CardWrapper.astro";
+import Icon from "../atoms/Icon.astro";
+---
+
+<CardWrapper title="Request Response over HTTP" color="pink">
+    <div class="flex items-center justify-between w-full px-8 gap-4">
+        <!-- Browser -->
+        <div class="z-10">
+            <Icon name="browser" />
+        </div>
+
+        <!-- API Connection -->
+        <div
+            class="flex-1 border-b-2 border-dashed border-gray-400 relative mx-2 h-[2px]"
+        >
+            <div
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20"
+            >
+                <Icon name="api" />
+            </div>
+        </div>
+
+        <!-- Server Stack -->
+        <div class="flex flex-col gap-1 items-center z-10">
+            <div class="w-8 h-4 bg-gray-500 rounded"></div>
+            <div class="w-8 h-4 bg-gray-500 rounded"></div>
+            <div class="w-8 h-4 bg-gray-500 rounded"></div>
+            <span class="text-[10px] font-bold mt-1 text-gray-500">Svc</span>
+        </div>
+    </div>
+</CardWrapper>

@@ -1,0 +1,29 @@
+---
+import LabelBadge from "./LabelBadge.astro";
+
+interface Props {
+    title?: string;
+    color?: "yellow" | "green" | "pink" | "purple" | "blue";
+    class?: string;
+}
+
+const { title, color = "blue", class: className = "" } = Astro.props;
+---
+
+<div
+    class={`relative bg-gray-100/50 rounded-xl border border-gray-200 p-8 pt-10 ${className}`}
+>
+    {
+        title && (
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <LabelBadge text={title} color={color} />
+            </div>
+        )
+    }
+
+    <div
+        class="w-full h-full flex flex-col items-center justify-center relative z-0"
+    >
+        <slot />
+    </div>
+</div>

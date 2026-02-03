@@ -1,0 +1,66 @@
+---
+interface Props {
+    width?: number;
+    rotate?: number;
+    isAnimate?: boolean;
+    color?: string;
+    class?: string;
+}
+
+const {
+    width = 100,
+    rotate = 0,
+    isAnimate = true,
+    color = "#9CA3AF",
+    class: className = "",
+} = Astro.props;
+
+const dashArray = "4 4";
+const markerId = `arrowhead-${width}-${rotate}-${color.replace("#", "")}`;
+---
+
+<div
+    class={`absolute transform origin-left pointer-events-none ${className}`}
+    style={`width: ${width}px; transform: rotate(${rotate}deg);`}
+>
+    <svg width="100%" height="20" class="overflow-visible">
+        <defs>
+            <marker
+                id={markerId}
+                markerWidth="10"
+                markerHeight="7"
+                refX="9"
+                refY="3.5"
+                orient="auto"
+            >
+                <polygon points="0 0, 10 3.5, 0 7" fill={color}></polygon>
+            </marker>
+        </defs>
+
+        <line
+            x1="0"
+            y1="10"
+            x2={width - 8}
+            y2="10"
+            stroke={color}
+            stroke-width="2"
+            stroke-dasharray={dashArray}
+            marker-end={`url(#${markerId})`}
+            class={isAnimate ? "animate-flow" : ""}></line>
+    </svg>
+</div>
+
+<style>
+    .animate-flow {
+        animation: flow 1s linear infinite;
+    }
+
+    @keyframes flow {
+        from {
+            stroke-dashoffset: 8;
+        }
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+</style>

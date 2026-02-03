@@ -1,0 +1,58 @@
+---
+import CardWrapper from "../atoms/CardWrapper.astro";
+import Icon from "../atoms/Icon.astro";
+import ConnectorLine from "../atoms/ConnectorLine.astro";
+---
+
+<CardWrapper title="Communication with Shared Data" color="yellow">
+    <div class="flex items-center gap-8 relative">
+        <!-- Services Left -->
+        <div class="flex flex-col gap-4">
+            <Icon name="server" />
+            <Icon name="server" />
+        </div>
+
+        <!-- Shared File -->
+        <div class="z-20">
+            <Icon name="file" />
+        </div>
+
+        <!-- Services Right (Visualizing other consumers) -->
+        <div class="flex flex-col gap-4">
+            <Icon name="server" />
+        </div>
+
+        <!-- Connectors -->
+        <div class="absolute inset-0 pointer-events-none">
+            <!-- Left top to File -->
+            <div class="absolute top-[20%] left-[25%] rotate-[30deg]">
+                <ConnectorLine
+                    width={60}
+                    rotate={0}
+                    isAnimate={true}
+                    color="#F59E0B"
+                />
+            </div>
+            <!-- Left bottom to File -->
+            <div class="absolute bottom-[20%] left-[25%] -rotate-[30deg]">
+                <ConnectorLine
+                    width={60}
+                    rotate={0}
+                    isAnimate={true}
+                    color="#F59E0B"
+                />
+            </div>
+            <!-- Right to File -->
+            <div
+                class="absolute top-1/2 right-[25%] -translate-y-1/2 rotate-180"
+            >
+                <ConnectorLine
+                    width={60}
+                    rotate={0}
+                    isAnimate={true}
+                    color="#F59E0B"
+                />
+            </div>
+        </div>
+    </div>
+</CardWrapper>

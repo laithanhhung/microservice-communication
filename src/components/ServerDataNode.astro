@@ -1,0 +1,56 @@
+---
+---
+
+<div class="p-6 bg-gray-100 rounded-lg inline-block">
+  <div class="relative flex flex-col items-center justify-center space-y-[-10px]">
+    <!-- Layer 1 (Bottom) -->
+    <div class="w-24 h-8 bg-gray-700 rounded-sm relative z-0 flex items-center justify-center gap-1">
+       <div class="grid grid-cols-2 gap-0.5">
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+       </div>
+    </div>
+    
+    <!-- Layer 2 (Middle) -->
+    <div class="w-24 h-8 bg-gray-700 rounded-sm relative z-10 flex items-center justify-center gap-1 shadow-sm">
+       <div class="grid grid-cols-2 gap-0.5">
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+       </div>
+    </div>
+    
+    <!-- Layer 3 (Top) -->
+    <div class="w-24 h-8 bg-gray-700 rounded-sm relative z-20 flex items-center justify-center gap-1 shadow-md">
+       <div class="grid grid-cols-2 gap-0.5">
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+          <div class="w-1.5 h-1.5 bg-white blink-square transition-colors duration-300"></div>
+       </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupBlinking() {
+    const colors = ['#22D3EE', '#FFFFFF', '#FB923C']; // Cyan, White, Orange
+    const squares = document.querySelectorAll('.blink-square');
+
+    setInterval(() => {
+      squares.forEach((square) => {
+         const randomColor = colors[Math.floor(Math.random() * colors.length)];
+         (square as HTMLElement).style.backgroundColor = randomColor;
+      });
+    }, 600);
+  }
+
+  // Run on initial load
+  setupBlinking();
+
+  // Support View Transitions if enabled
+  document.addEventListener('astro:page-load', setupBlinking);
+</script>

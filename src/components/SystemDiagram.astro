@@ -1,0 +1,109 @@
+---
+import MainTitle from "./layout/MainTitle.astro";
+import TopicNode from "./layout/TopicNode.astro";
+import CentralSwitch from "./layout/CentralSwitch.astro";
+import LegendList from "./layout/LegendList.astro";
+
+import PatternSharedData from "./diagrams/PatternSharedData.astro";
+import PatternEventDriven from "./diagrams/PatternEventDriven.astro";
+import PatternAsync from "./diagrams/PatternAsync.astro";
+import PatternSyncHTTP from "./diagrams/PatternSyncHTTP.astro";
+
+import ConnectorLine from "./atoms/ConnectorLine.astro";
+---
+
+<div
+    class="max-w-7xl w-full bg-white rounded-3xl shadow-2xl p-8 relative overflow-hidden"
+>
+    <!-- Header -->
+    <MainTitle />
+
+    <div class="relative grid grid-cols-1 lg:grid-cols-3 gap-12 mb-20 z-10">
+        <!-- Top Row -->
+        <PatternSharedData />
+        <PatternEventDriven />
+        <PatternAsync />
+
+        <!-- Middle Row Logic (Visual placement) -->
+        <!-- The grid structure implies flowing content. 
+         We need specific placement for TopicNode and CentralSwitch. 
+         We can use grid-row/col manipulation or absolute positioning for the 'Hub' effect if strict grid is hard.
+         Let's stick to the 3-col grid concept for the main blocks, but 'CentralSwitch' sits in the middle.
+    -->
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 relative z-10 mb-12">
+        <!-- Left: Topic Node (Spans? Or just sits in Col 1) -->
+        <div class="flex items-center justify-center">
+            <TopicNode />
+        </div>
+
+        <!-- Center: Switch -->
+        <div class="flex items-center justify-center relative">
+            <CentralSwitch />
+
+            <!-- Central Hub Connections (Overlay) -->
+            <div class="absolute inset-0 pointer-events-none z-0">
+                <!-- To Shared Data (Top Left) -->
+                <div
+                    class="absolute top-0 left-0 -translate-x-[20%] -translate-y-[80%] -rotate-[40deg]"
+                >
+                    <ConnectorLine
+                        width={200}
+                        isAnimate={true}
+                        color="#FBBF24"
+                    />
+                </div>
+
+                <!-- To Event Driven (Top Center) -->
+                <div
+                    class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[80%] -rotate-90"
+                >
+                    <ConnectorLine
+                        width={150}
+                        isAnimate={true}
+                        color="#10B981"
+                    />
+                </div>
+
+                <!-- To Async (Top Right) -->
+                <div
+                    class="absolute top-0 right-0 translate-x-[20%] -translate-y-[80%] rotate-[220deg]"
+                >
+                    <!-- Rotate is tricky without seeing. Let's approximate angle pointing top-right -->
+                    <ConnectorLine
+                        width={200}
+                        isAnimate={true}
+                        color="#EC4899"
+                        rotate={220}
+                    />
+                </div>
+
+                <!-- To Sync HTTP (Bottom Right) -->
+                <div
+                    class="absolute bottom-0 right-0 translate-x-[20%] translate-y-[50%] rotate-[45deg]"
+                >
+                    <ConnectorLine
+                        width={180}
+                        isAnimate={true}
+                        color="#EC4899"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Empty or spacing? -->
+        <!-- Actually, the 4th diagram (SyncHTTP) goes to Bottom Right.
+            But in the original grid, it was 2 cols at bottom.
+            Let's adapt:
+            Row 2: Topic | Switch | [Gap/Spacer]
+            Row 3: Legend | [Gap] | SyncHTTP
+       -->
+        <div class="hidden lg:block"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
+        <LegendList />
+        <PatternSyncHTTP />
+    </div>
+</div>

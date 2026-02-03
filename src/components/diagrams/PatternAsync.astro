@@ -1,0 +1,26 @@
+---
+import CardWrapper from "../atoms/CardWrapper.astro";
+import Icon from "../atoms/Icon.astro";
+---
+
+<CardWrapper title="Async Request Response" color="pink">
+    <div class="flex flex-col gap-6 w-full items-center">
+        <!-- Request Flow -->
+        <div class="flex items-center gap-3">
+            <span class="text-xs font-bold text-gray-500">Service A</span>
+            <span class="text-pink-500 font-bold">→</span>
+            <Icon name="queue" />
+            <span class="text-pink-500 font-bold">→</span>
+            <span class="text-xs font-bold text-gray-500">Service B</span>
+        </div>
+
+        <!-- Response Flow -->
+        <div class="flex items-center gap-3">
+            <span class="text-xs font-bold text-gray-500">Service A</span>
+            <span class="text-pink-500 font-bold">←</span>
+            <Icon name="queue" />
+            <span class="text-pink-500 font-bold">←</span>
+            <span class="text-xs font-bold text-gray-500">Service B</span>
+        </div>
+    </div>
+</CardWrapper>
