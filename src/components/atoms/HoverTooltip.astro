@@ -35,13 +35,13 @@ const arrowPosClasses = arrowClasses[position] || arrowClasses.top;
 ---
 
 {entry ? (
-    <div class={`hover-tooltip-container absolute w-96 bg-white rounded-lg p-5 shadow-2xl opacity-0 invisible transition-all duration-300 z-50 text-left border border-gray-100 pointer-events-none ${mainClasses} ${position === 'left' || position === 'right' ? '' : 'left-1/2 -translate-x-1/2'}`}>
+    <div class={`hover-tooltip-container absolute w-96 bg-white rounded-lg p-5 shadow-2xl opacity-0 invisible transition-all duration-300 z-50 text-left border border-slate-200 pointer-events-none ${mainClasses} ${position === 'left' || position === 'right' ? '' : 'left-1/2 -translate-x-1/2'}`}>
          <!-- Arrow -->
-         <div class={`tooltip-arrow absolute w-4 h-4 bg-white transform rotate-45 border-gray-100 ${arrowPosClasses}`}></div>
+         <div class={`tooltip-arrow absolute w-4 h-4 bg-white transform rotate-45 border-slate-200 ${arrowPosClasses}`}></div>
          
          <div class="prose prose-sm prose-slate max-w-none">
-             <h3 class="text-gray-900 font-bold text-lg mb-2">{entry.data.title}</h3>
-             <div class="text-gray-600 leading-relaxed">
+             <h3 class="text-slate-900 font-bold text-lg mb-2">{entry.data.title}</h3>
+             <div class="text-slate-600 leading-relaxed">
                  <Content />
              </div>
          </div>

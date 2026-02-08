@@ -13,11 +13,367 @@ import "../styles/global.css";
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
             rel="stylesheet"
         />
     </head>
-    <body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
-        <SystemDiagram />
+    <body class="min-h-screen">
+        <div class="page-orb page-orb--teal"></div>
+        <div class="page-orb page-orb--amber"></div>
+        <div class="page-grid"></div>
+        <main class="page-shell">
+            <nav class="topbar">
+                <div class="brand">
+                    <span class="brand-dot"></span>
+                    <span>Microservice Patterns</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#hero">Hero</a>
+                    <a href="#theory">Theory</a>
+                    <a href="#diagram">Patterns</a>
+                </div>
+                <a class="btn btn-primary" href="#diagram">View Diagram</a>
+            </nav>
+
+            <section id="hero" class="hero reveal">
+                <div class="hero-copy">
+                    <span class="eyebrow">Chapter 10 · Architecture</span>
+                    <h1>
+                        Introduction to Microservices Communication
+                        <span class="accent-text">Patterns</span>
+                    </h1>
+                    <p>
+                        A modern, high-clarity guide for engineers mapping
+                        synchronous, asynchronous, and event-driven strategies
+                        in distributed systems.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#diagram">
+                            View Diagram
+                        </a>
+                        <a class="btn btn-ghost" href="#theory">
+                            Visual Guide
+                        </a>
+                    </div>
+                    <div class="hero-metrics">
+                        <div class="reveal stagger-1">
+                            <strong>4</strong>
+                            <span>core patterns</span>
+                        </div>
+                        <div class="reveal stagger-2">
+                            <strong>2</strong>
+                            <span>communication modes</span>
+                        </div>
+                        <div class="reveal stagger-3">
+                            <strong>8+</strong>
+                            <span>visual callouts</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-panel reveal stagger-1">
+                    <div class="hero-panel-header">
+                        <span>Key Signals</span>
+                        <span class="chip">Live</span>
+                    </div>
+                    <ul class="hero-panel-list">
+                        <li class="reveal stagger-1">
+                            <span class="dot dot-teal"></span>
+                            <div>
+                                <strong>Reliability</strong>
+                                <p>Resilience through decoupling.</p>
+                            </div>
+                        </li>
+                        <li class="reveal stagger-2">
+                            <span class="dot dot-amber"></span>
+                            <div>
+                                <strong>Latency</strong>
+                                <p>Choose sync paths for speed.</p>
+                            </div>
+                        </li>
+                        <li class="reveal stagger-3">
+                            <span class="dot dot-coral"></span>
+                            <div>
+                                <strong>Scalability</strong>
+                                <p>Events unlock elastic growth.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="hero-panel-footer">
+                        <span>Updated for clarity-first docs</span>
+                        <button class="btn btn-ghost" type="button">
+                            Export Notes
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="theory" class="section reveal">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Theory & Core Concepts</p>
+                        <h2>Understand the tradeoffs before you choose.</h2>
+                    </div>
+                    <p>
+                        Synchronous and asynchronous communication solve
+                        different problems. Use the right strategy for the right
+                        workload.
+                    </p>
+                </div>
+                <div class="section-surface">
+                    <div class="info-grid">
+                        <article class="info-card reveal stagger-1">
+                        <div class="info-icon info-icon-teal">S</div>
+                        <h3>Synchronous Communication</h3>
+                        <p>
+                            Tight feedback loops with predictable response
+                            cycles. Ideal for request-response APIs and short
+                            workflows.
+                        </p>
+                        </article>
+                        <article class="info-card reveal stagger-2">
+                        <div class="info-icon info-icon-amber">A</div>
+                        <h3>Asynchronous Communication</h3>
+                        <p>
+                            Messages queue up for later processing. Boosts
+                            resilience and unlocks scale, with extra
+                            observability needs.
+                        </p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="diagram" class="section reveal">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Communication Patterns</p>
+                        <h2>Visual guide for microservice choreography.</h2>
+                    </div>
+                    <p>
+                        Explore shared data, message brokers, async queues, and
+                        synchronous HTTP paths in one cohesive map.
+                    </p>
+                </div>
+                <div class="section-surface reveal stagger-1">
+                    <SystemDiagram />
+                </div>
+            </section>
+
+            <section id="examples" class="section reveal">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Examples</p>
+                        <h2>Concrete code snippets for each pattern.</h2>
+                    </div>
+                    <p>
+                        Short, real-world examples to help readers connect the
+                        visuals to implementation choices.
+                    </p>
+                </div>
+                <div class="example-grid">
+                    <article class="example-card reveal stagger-1">
+                        <div class="example-head">
+                            <div>
+                                <h3>Request-Response over HTTP</h3>
+                                <p>Direct API calls with resilience policies.</p>
+                            </div>
+                            <span class="tag tag-teal">Sync</span>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-meta">
+                                <span class="dot dot-coral"></span>
+                                <span class="dot dot-amber"></span>
+                                <span class="dot dot-teal"></span>
+                                <span>http-service.cs</span>
+                            </div>
+                            <pre><code>app.MapGet("/users/&#123;id&#125;", (int id) =>
+    Results.Ok(new &#123; Id = id, Name = "Alice" &#125;));
+
+var retry = Policy
+    .Handle&lt;HttpRequestException&gt;()
+    .WaitAndRetryAsync(3, i => TimeSpan.FromMilliseconds(200 * i));
+
+var res = await retry.ExecuteAsync(() =>
+    http.GetAsync($"https://api.example.com/users/&#123;id&#125;"));
+res.EnsureSuccessStatusCode();</code></pre>
+                        </div>
+                    </article>
+
+                    <article class="example-card reveal stagger-2">
+                        <div class="example-head">
+                            <div>
+                                <h3>Async Request-Response (Queues)</h3>
+                                <p>Tickets + workers with idempotency.</p>
+                            </div>
+                            <span class="tag tag-amber">Async</span>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-meta">
+                                <span class="dot dot-coral"></span>
+                                <span class="dot dot-amber"></span>
+                                <span class="dot dot-teal"></span>
+                                <span>queue-flow.cs</span>
+                            </div>
+                            <pre><code>await sender.SendMessageAsync(
+    new ServiceBusMessage("&#123;\"task\":\"resize\"&#125;"));
+
+var processor = client.CreateProcessor("tasks");
+processor.ProcessMessageAsync += async args => &#123;
+    var messageId = args.Message.MessageId;
+    if (await store.ExistsAsync(messageId)) return;
+    await handler.RunAsync(args.Message.Body);
+    await store.MarkDoneAsync(messageId);
+    await args.CompleteMessageAsync(args.Message);
+&#125;;</code></pre>
+                        </div>
+                    </article>
+
+                    <article class="example-card reveal stagger-2">
+                        <div class="example-head">
+                            <div>
+                                <h3>Event-Driven (Topics)</h3>
+                                <p>Publish once, multiple consumers react.</p>
+                            </div>
+                            <span class="tag tag-teal">Events</span>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-meta">
+                                <span class="dot dot-coral"></span>
+                                <span class="dot dot-amber"></span>
+                                <span class="dot dot-teal"></span>
+                                <span>event-bus.cs</span>
+                            </div>
+                            <pre><code>public record OrderCreated(int OrderId);
+await bus.Publish(new OrderCreated(123));
+
+public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
+    public Task Consume(ConsumeContext&lt;OrderCreated&gt; ctx) =>
+        NotifyShipping(ctx.Message.OrderId);
+&#125;</code></pre>
+                        </div>
+                    </article>
+
+                    <article class="example-card reveal stagger-3">
+                        <div class="example-head">
+                            <div>
+                                <h3>Shared Data (Files/DB)</h3>
+                                <p>Coordinate via shared storage.</p>
+                            </div>
+                            <span class="tag tag-coral">Shared</span>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-meta">
+                                <span class="dot dot-coral"></span>
+                                <span class="dot dot-amber"></span>
+                                <span class="dot dot-teal"></span>
+                                <span>shared-db.cs</span>
+                            </div>
+                            <pre><code>context.Ledger.Add(new LedgerEntry &#123;
+    Type = "credit", Amount = 100
+&#125;);
+await context.SaveChangesAsync();
+
+var recent = await context.Ledger
+    .Where(x => x.CreatedAt > DateTime.UtcNow.AddDays(-1))
+    .ToListAsync();</code></pre>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section id="tradeoffs" class="section reveal">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Trade-offs</p>
+                        <h2>When to choose sync vs async.</h2>
+                    </div>
+                    <p>
+                        Use synchronous calls for user-facing, low-latency
+                        actions. Use async workflows when work is long-running,
+                        can be retried, or needs to absorb spikes.
+                    </p>
+                </div>
+                <div class="section-surface">
+                    <div class="tradeoff-grid">
+                        <div class="tradeoff-card">
+                            <h3>Pick Sync When</h3>
+                            <ul>
+                                <li>Immediate response is required.</li>
+                                <li>Latency budgets are tight.</li>
+                                <li>Failures can be surfaced to the caller.</li>
+                            </ul>
+                        </div>
+                        <div class="tradeoff-card">
+                            <h3>Pick Async When</h3>
+                            <ul>
+                                <li>Work can be deferred or retried.</li>
+                                <li>Spiky traffic must be smoothed.</li>
+                                <li>Loose coupling is more important.</li>
+                            </ul>
+                        </div>
+                        <div class="tradeoff-card">
+                            <h3>Watch Outs</h3>
+                            <ul>
+                                <li>Idempotency and deduplication.</li>
+                                <li>Ordering and eventual consistency.</li>
+                                <li>Timeouts, retries, and backoff.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="reliability" class="section reveal">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Reliability & Observability</p>
+                        <h2>Make failures visible and recoverable.</h2>
+                    </div>
+                    <p>
+                        Production communication requires retries, circuit
+                        breakers, dead-letter queues, and tracing to follow
+                        events across services.
+                    </p>
+                </div>
+                <div class="section-surface">
+                    <div class="reliability-grid">
+                        <div class="reliability-card">
+                            <h3>Retry + Backoff</h3>
+                            <p>Handle transient failures without overload.</p>
+                        </div>
+                        <div class="reliability-card">
+                            <h3>Circuit Breakers</h3>
+                            <p>Fail fast to prevent cascading failures.</p>
+                        </div>
+                        <div class="reliability-card">
+                            <h3>Outbox Pattern</h3>
+                            <p>Guarantee event publish with DB commits.</p>
+                        </div>
+                        <div class="reliability-card">
+                            <h3>Tracing & Metrics</h3>
+                            <p>Correlate requests across services.</p>
+                        </div>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-meta">
+                            <span class="dot dot-coral"></span>
+                            <span class="dot dot-amber"></span>
+                            <span class="dot dot-teal"></span>
+                            <span>reliability.cs</span>
+                        </div>
+                        <pre><code>var retry = Policy
+    .Handle&lt;HttpRequestException&gt;()
+    .WaitAndRetryAsync(3, i => TimeSpan.FromMilliseconds(200 * i));
+
+var circuit = Policy
+    .Handle&lt;HttpRequestException&gt;()
+    .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
+
+await Policy.WrapAsync(retry, circuit)
+    .ExecuteAsync(() => http.GetAsync(url));</code></pre>
+                    </div>
+                </div>
+            </section>
+        </main>
     </body>
 </html>

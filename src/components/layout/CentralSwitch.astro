@@ -4,18 +4,18 @@ import HoverTooltip from "../atoms/HoverTooltip.astro";
 
 <div class="relative w-full h-full flex items-center justify-center">
     <div
-        class="w-48 h-48 rounded-full bg-white shadow-xl border-4 border-gray-100 flex flex-col relative z-10"
+        class="w-48 h-48 rounded-full bg-white shadow-2xl border border-slate-200 flex flex-col relative z-10"
     >
         <!-- Upper Hub -->
         <div
-            class="group relative h-1/2 bg-blue-400 flex items-center justify-center text-white font-bold text-center p-2 text-sm leading-tight hover:bg-blue-500 transition-colors cursor-help rounded-t-full"
+            class="group relative h-1/2 bg-teal-500 flex items-center justify-center text-white font-bold text-center p-2 text-sm leading-tight hover:bg-teal-600 transition-colors cursor-help rounded-t-full"
         >
             Asynchronous<br />Non-blocking
             <HoverTooltip contentId="central-async" />
         </div>
         <!-- Lower Hub -->
         <div
-            class="group relative h-1/2 bg-purple-500 flex items-center justify-center text-white font-bold text-center p-2 text-sm leading-tight hover:bg-purple-600 transition-colors cursor-help rounded-b-full"
+            class="group relative h-1/2 bg-amber-500 flex items-center justify-center text-white font-bold text-center p-2 text-sm leading-tight hover:bg-amber-600 transition-colors cursor-help rounded-b-full"
         >
             Synchronous<br />Blocking
             <HoverTooltip contentId="central-sync" position="bottom" />

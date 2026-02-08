@@ -1,5 +1,4 @@
 ---
-import MainTitle from "./layout/MainTitle.astro";
 import TopicNode from "./layout/TopicNode.astro";
 import CentralSwitch from "./layout/CentralSwitch.astro";
 import LegendList from "./layout/LegendList.astro";
@@ -12,9 +11,7 @@ import PatternSyncHTTP from "./diagrams/PatternSyncHTTP.astro";
 import ConnectorLine from "./atoms/ConnectorLine.astro";
 ---
 
-<div class="max-w-7xl w-full bg-white rounded-3xl shadow-2xl p-8 relative">
-    <!-- Header -->
-    <MainTitle />
+<div class="diagram-frame">
 
     <div class="relative grid grid-cols-1 lg:grid-cols-3 gap-12 mb-20 z-10">
         <!-- Top Row -->
@@ -49,7 +46,7 @@ import ConnectorLine from "./atoms/ConnectorLine.astro";
                     <ConnectorLine
                         width={250}
                         isAnimate={true}
-                        color="#51a2ff"
+                        color="#0ea5a4"
                         rotate={210}
                     />
                 </div>
@@ -61,7 +58,7 @@ import ConnectorLine from "./atoms/ConnectorLine.astro";
                     <ConnectorLine
                         width={95}
                         isAnimate={true}
-                        color="#51a2ff"
+                        color="#0ea5a4"
                         rotate={-90}
                     />
                 </div>
@@ -73,7 +70,7 @@ import ConnectorLine from "./atoms/ConnectorLine.astro";
                     <ConnectorLine
                         width={250}
                         isAnimate={true}
-                        color="#51a2ff"
+                        color="#0ea5a4"
                         rotate={-30}
                     />
                 </div>
@@ -85,7 +82,7 @@ import ConnectorLine from "./atoms/ConnectorLine.astro";
                     <ConnectorLine
                         width={150}
                         isAnimate={true}
-                        color="#ad46ff"
+                        color="#f59e0b"
                         rotate={30}
                     />
                 </div>
