@@ -456,6 +456,71 @@ a {
     gap: 20px;
 }
 
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.video-grid.is-single {
+    grid-template-columns: minmax(0, 520px);
+    justify-content: center;
+}
+
+.video-card {
+    background: var(--surface);
+    border: 1px solid var(--stroke);
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 14px 34px rgba(16, 20, 38, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.video-thumb {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-play {
+    border: none;
+    background: rgba(16, 20, 38, 0.75);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.video-play:hover {
+    transform: translateY(-1px);
+    background: rgba(16, 20, 38, 0.9);
+}
+
+.video-iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+    border-radius: 14px;
+    display: block;
+}
+
+.video-note {
+    margin: 16px 0 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
 .tradeoff-card,
 .reliability-card {
     background: var(--surface);
@@ -581,4 +646,5 @@ a {
     .reliability-grid {
         grid-template-columns: 1fr;
     }
+
 }
