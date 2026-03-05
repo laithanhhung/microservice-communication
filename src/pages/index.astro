@@ -31,6 +31,7 @@ import "../styles/global.css";
                     <a href="#hero">Hero</a>
                     <a href="#theory">Theory</a>
                     <a href="#diagram">Patterns</a>
+                    <a href="#shorts">Short Video</a>
                 </div>
                 <a class="btn btn-primary" href="#diagram">View Diagram</a>
             </nav>
@@ -323,6 +324,40 @@ var recent = await context.Ledger
                 </div>
             </section>
 
+            <section id="shorts" class="section reveal">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Learning Tabs</p>
+                        <h2>Learn faster with short video.</h2>
+                    </div>
+                    <p>
+                        Switch to the video tab for a quick recap of the key
+                        ideas.
+                    </p>
+                </div>
+                <div class="section-surface">
+                    <div class="video-grid is-single">
+                        <article class="video-card">
+                            <div
+                                class="video-thumb"
+                                style="background-image: url('https://i.ytimg.com/vi/MvUpdD3D2jY/hqdefault.jpg')"
+                                data-youtube-id="MvUpdD3D2jY"
+                            >
+                                <button
+                                    class="video-play"
+                                    type="button"
+                                    aria-label="Play video"
+                                >
+                                    Play
+                                </button>
+                            </div>
+                            <h3>Microservice Communication Styles</h3>
+                            <p>A concise overview to anchor the core patterns.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
             <section id="reliability" class="section reveal">
                 <div class="section-head">
                     <div>
@@ -375,5 +410,26 @@ await Policy.WrapAsync(retry, circuit)
                 </div>
             </section>
         </main>
+        <script>
+            const videoThumbs = document.querySelectorAll(".video-thumb");
+            videoThumbs.forEach((thumb) => {
+                const button = thumb.querySelector(".video-play");
+                button.addEventListener("click", () => {
+                    const videoId = thumb.dataset.youtubeId;
+                    if (!videoId || videoId.includes("YOUR_VIDEO_ID")) {
+                        return;
+                    }
+                    const iframe = document.createElement("iframe");
+                    iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+                    iframe.title = "YouTube video player";
+                    iframe.allow =
+                        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+                    iframe.allowFullscreen = true;
+                    iframe.loading = "lazy";
+                    iframe.className = "video-iframe";
+                    thumb.replaceWith(iframe);
+                });
+            });
+        </script>
     </body>
 </html>
