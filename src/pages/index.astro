@@ -1,5 +1,6 @@
 ---
 import SystemDiagram from "../components/SystemDiagram.astro";
+import ProjectChatbox from "../components/ProjectChatbox.astro";
 import "../styles/global.css";
 ---
 
@@ -410,6 +411,7 @@ await Policy.WrapAsync(retry, circuit)
                 </div>
             </section>
         </main>
+        <ProjectChatbox />
         <script>
             const videoThumbs = document.querySelectorAll(".video-thumb");
             videoThumbs.forEach((thumb) => {
