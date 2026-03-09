@@ -1,0 +1,150 @@
+<div class="project-chatbox" data-chatbox-root>
+    <button
+        type="button"
+        class="chatbox-toggle"
+        data-chatbox-toggle
+        aria-label="Open project assistant"
+        aria-expanded="false"
+    >
+        Ask AI
+    </button>
+
+    <section class="chatbox-panel" data-chatbox-panel aria-hidden="true">
+        <header class="chatbox-header">
+            <div>
+                <strong>Project Assistant</strong>
+                <p>Asks & answers around microservice communication topics.</p>
+            </div>
+            <button type="button" class="chatbox-close" data-chatbox-close aria-label="Close chat">x</button>
+        </header>
+
+        <div class="chatbox-messages" data-chatbox-messages></div>
+
+        <form class="chatbox-form" data-chatbox-form>
+            <input
+                type="text"
+                name="message"
+                maxlength="500"
+                placeholder="Ask about sync/async, broker, trade-offs..."
+                autocomplete="off"
+                required
+            />
+            <button type="submit">Send</button>
+        </form>
+    </section>
+</div>
+
+<script>
+    const root = document.querySelector("[data-chatbox-root]");
+    if (root) {
+        const toggleButton = root.querySelector("[data-chatbox-toggle]");
+        const closeButton = root.querySelector("[data-chatbox-close]");
+        const panel = root.querySelector("[data-chatbox-panel]");
+        const messagesContainer = root.querySelector("[data-chatbox-messages]");
+        const form = root.querySelector("[data-chatbox-form]");
+        const input = form?.querySelector("input[name='message']");
+
+        let messages = [
+            {
+                role: "assistant",
+                content:
+                    "Hi, I can answer questions about this project and broader microservice communication topics.",
+            },
+        ];
+
+        function escapeHtml(text) {
+            return text
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#39;");
+        }
+
+        function renderMessages() {
+            messagesContainer.innerHTML = messages
+                .map((message) => {
+                    const safeContent = escapeHtml(message.content);
+                    return `
+                    <article class="chat-msg chat-msg-${message.role}">
+                        <p>${safeContent}</p>
+                    </article>`;
+                })
+                .join("");
+
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function setOpenState(isOpen) {
+            root.classList.toggle("is-open", isOpen);
+            panel.setAttribute("aria-hidden", String(!isOpen));
+            toggleButton.setAttribute("aria-expanded", String(isOpen));
+            if (isOpen) {
+                setTimeout(() => input?.focus(), 20);
+            }
+        }
+
+        toggleButton?.addEventListener("click", () => {
+            setOpenState(!root.classList.contains("is-open"));
+        });
+
+        closeButton?.addEventListener("click", () => setOpenState(false));
+
+        form?.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const text = input?.value?.trim();
+            if (!text) {
+                return;
+            }
+
+            input.value = "";
+            messages.push({ role: "user", content: text });
+            messages.push({ role: "assistant", content: "Thinking..." });
+            renderMessages();
+
+            try {
+                const response = await fetch("/api/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        messages: messages
+                            .filter((entry) => entry.content !== "Thinking...")
+                            .map((entry) => ({
+                                role: entry.role,
+                                content: entry.content,
+                            })),
+                        maxContextChunks: 6,
+                    }),
+                });
+
+                const data = await response.json();
+                messages.pop();
+
+                if (!response.ok) {
+                    const message =
+                        data?.error?.message ||
+                        "Unable to get a response from the project assistant.";
+                    messages.push({ role: "assistant", content: message });
+                    renderMessages();
+                    return;
+                }
+
+                messages.push({
+                    role: "assistant",
+                    content: data.answer || "No answer returned.",
+                });
+                renderMessages();
+                return;
+            } catch (error) {
+                messages.pop();
+                messages.push({
+                    role: "assistant",
+                    content: "Network error while calling /api/chat.",
+                });
+                renderMessages();
+            }
+        });
+
+        renderMessages();
+    }
+</script>
