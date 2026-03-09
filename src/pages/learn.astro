@@ -1,0 +1,2742 @@
+---
+import "../styles/global.css";
+import SystemDiagram from "../components/SystemDiagram.astro";
+const chapters = [
+    {
+        num: "01",
+        title: "Foundations",
+        modules: [
+            { id: "intro", label: "Introduction" },
+            { id: "challenges", label: "Challenges" },
+            { id: "patterns", label: "Core Patterns" },
+        ],
+    },
+    {
+        num: "02",
+        title: "Communication Styles",
+        modules: [
+            { id: "sync", label: "Synchronous Blocking" },
+            { id: "async", label: "Async Non-Blocking" },
+        ],
+    },
+    {
+        num: "03",
+        title: "Async Patterns",
+        modules: [
+            { id: "shared-data", label: "Shared Data" },
+            { id: "async-rr", label: "Async Request-Response" },
+            { id: "event-driven", label: "Event-Driven" },
+        ],
+    },
+    {
+        num: "04",
+        title: "Technology & Summary",
+        modules: [
+            { id: "technology", label: "Technology Choices" },
+            { id: "summary", label: "Summary & Decision" },
+        ],
+    },
+    {
+        num: "05",
+        title: "Assessment",
+        modules: [{ id: "quiz", label: "Final Quiz" }],
+    },
+];
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Microservice Communication Patterns</title>
+        <meta
+            name="description"
+            content="Interactive mini-course on Microservice Communication Patterns for distributed systems engineers."
+        />
+        <link rel="icon" type="image/png" href="/logo.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <div class="app-shell">
+            <!-- TOPBAR -->
+            <nav class="topbar">
+                <div class="topbar-brand">
+                    <img
+                        src="/logo.png"
+                        alt="Logo"
+                        class="w-8 h-8 object-contain"
+                    />
+                    <span>Microservice Patterns</span>
+                </div>
+                <div class="topbar-nav">
+                    <a href="#" class="top-nav-link" data-target="intro">Docs</a
+                    >
+                    <a
+                        href="#"
+                        class="top-nav-link"
+                        data-target="overview-diagram">Architecture</a
+                    >
+                    <a href="#" class="top-nav-link" data-target="video"
+                        >Video</a
+                    >
+                </div>
+                <button class="topbar-cta" id="start-btn"
+                    >Start Learning →</button
+                >
+            </nav>
+
+            <!-- PROGRESS BAR -->
+            <div class="progress-bar-wrap">
+                <div class="progress-bar-inner">
+                    <span
+                        style="display:flex;align-items:center;gap:8px;font-size:11px;"
+                    >
+                        <svg
+                            style="width:13px;height:13px;color:var(--accent)"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            ><path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg
+                        >
+                        Progress
+                    </span>
+                    <span
+                        id="progress-pct"
+                        style="color:var(--accent);font-family:var(--font-mono);font-weight:700;font-size:11px;"
+                        >0%</span
+                    >
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- LEARN SHELL -->
+            <div class="learn-shell">
+                <!-- SIDEBAR -->
+                <aside class="sidebar">
+                    {
+                        chapters.map((ch) => (
+                            <div>
+                                <div class="sidebar-chapter-title">
+                                    <span class="sidebar-chapter-num">
+                                        {ch.num}
+                                    </span>
+                                    {ch.title}
+                                </div>
+                                <ul class="sidebar-list">
+                                    {ch.modules.map((m) => (
+                                        <li>
+                                            <button
+                                                class="sidebar-btn"
+                                                data-target={m.id}
+                                            >
+                                                <span>{m.label}</span>
+                                                <span class="sidebar-dot" />
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))
+                    }
+                    <div class="sidebar-footer">
+                        <span>v2.0</span>
+                        <div style="display:flex;align-items:center;gap:6px;">
+                            <span class="sidebar-status-dot"></span><span
+                                >Online</span
+                            >
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- CONTENT -->
+                <main class="content-area">
+                    <!-- ═══ MODULE 1: INTRODUCTION ═══ -->
+                    <section id="intro" class="content-section">
+                        <div class="section-label">
+                            <span class="section-label-dot"></span>Module 01 ·
+                            Introduction
+                        </div>
+                        <h1 class="section-title">
+                            Introduction to Microservices
+                        </h1>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-concept">
+                                Concept Explanation
+                            </div>
+                            <p class="cb-concept">
+                                Microservices architecture decomposes
+                                applications into independent services that must
+                                communicate to form a cohesive system.
+                                Communication occurs over networks, introducing
+                                challenges like latency and failures, unlike
+                                in-process calls in monoliths. Selecting the
+                                right pattern is crucial for performance and
+                                scalability.
+                            </p>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-example">Example</div>
+                            <div class="cb-example">
+                                In an e-commerce system, the <strong
+                                    >order service</strong
+                                > communicates with <strong>payment</strong> and <strong
+                                    >inventory services</strong
+                                > over the network to complete a transaction — unlike
+                                a monolith where these are direct function calls.
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-diagram">
+                                Architecture Diagram
+                            </div>
+                            <div class="diagram-frame">
+                                <div class="d-col">
+                                    <div
+                                        style="font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-family:var(--font-mono);margin-bottom:10px;"
+                                    >
+                                        Monolith
+                                    </div>
+                                    <div class="d-row">
+                                        <div class="d-node d-node-teal">
+                                            Client
+                                        </div>
+                                        <span class="d-arrow">→</span>
+                                        <div class="d-node d-node-teal">
+                                            Single Process<br /><small
+                                                style="font-size:10px;opacity:.6;"
+                                                >(In-Process Calls)</small
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="height:1px;background:var(--stroke);margin:20px 0;width:50%;align-self:center;"
+                                    >
+                                    </div>
+                                    <div
+                                        style="font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-family:var(--font-mono);margin-bottom:10px;"
+                                    >
+                                        Microservices
+                                    </div>
+                                    <div
+                                        class="d-row"
+                                        style="flex-wrap:wrap;gap:8px;"
+                                    >
+                                        <div class="d-node d-node-accent">
+                                            Client
+                                        </div>
+                                        <span class="d-arrow">→</span>
+                                        <div class="d-node d-node-purple">
+                                            Order Service
+                                        </div>
+                                        <span class="d-arrow">→ Network →</span>
+                                        <div class="d-node d-node-teal">
+                                            Payment Service
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-realworld">
+                                Real World Application
+                            </div>
+                            <div class="rw-card" style="margin-bottom:0;">
+                                <div class="rw-icon">🌐</div>
+                                <div>
+                                    <div class="rw-label">Netflix</div>
+                                    <div class="rw-body">
+                                        Netflix uses microservices for
+                                        streaming, where UI services communicate
+                                        with recommendation engines to
+                                        personalize content for 238M+
+                                        subscribers.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-tradeoffs">
+                                Trade-offs
+                            </div>
+                            <table class="cb-tradeoffs-table">
+                                <thead
+                                    ><tr
+                                        ><th>Approach</th><th>Pros</th><th
+                                            >Cons</th
+                                        ></tr
+                                    ></thead
+                                >
+                                <tbody>
+                                    <tr
+                                        ><td>Monolith</td><td class="pros"
+                                            >Fast in-process calls, simple</td
+                                        ><td class="cons"
+                                            >Tight coupling, hard to scale parts</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Microservices</td><td class="pros"
+                                            >Independent deploy, scalable</td
+                                        ><td class="cons"
+                                            >Network overhead, distributed
+                                            failures</td
+                                        ></tr
+                                    >
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ═══ MODULE 2: CHALLENGES ═══ -->
+                    <section id="challenges" class="content-section">
+                        <div class="section-label">
+                            <span class="section-label-dot"></span>Module 02 ·
+                            Challenges
+                        </div>
+                        <h1 class="section-title">
+                            Challenges in Communication
+                        </h1>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-concept">
+                                Concept Explanation
+                            </div>
+                            <p class="cb-concept">
+                                Inter-process communication in microservices
+                                differs from in-process method calls, leading to
+                                issues in performance, interface modifications,
+                                and error handling. What was a simple function
+                                call becomes a remote network call with
+                                serialization overhead, potential timeouts, and
+                                backward compatibility concerns.
+                            </p>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-example">Example</div>
+                            <div class="cb-example">
+                                A service call over a network adds <strong
+                                    >serialization overhead</strong
+                                > — the object must be converted to JSON/binary, transmitted,
+                                and deserialized on the other side — unlike passing
+                                a memory reference in a monolith.
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-diagram">
+                                Architecture Diagram
+                            </div>
+                            <div class="diagram-frame">
+                                <div class="d-col" style="gap:14px;">
+                                    <div
+                                        style="font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-family:var(--font-mono);margin-bottom:4px;"
+                                    >
+                                        Three Core Challenges
+                                    </div>
+                                    <div
+                                        class="d-row"
+                                        style="flex-wrap:wrap;gap:12px;"
+                                    >
+                                        <div
+                                            style="flex:1;min-width:140px;padding:14px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:10px;"
+                                        >
+                                            <div
+                                                style="color:var(--amber);font-weight:700;font-size:12px;margin-bottom:6px;"
+                                            >
+                                                ⚡ Performance
+                                            </div>
+                                            <div
+                                                style="font-size:12px;color:var(--muted);line-height:1.6;"
+                                            >
+                                                Network Latency + Serialization
+                                                Cost
+                                            </div>
+                                        </div>
+                                        <div
+                                            style="flex:1;min-width:140px;padding:14px;background:rgba(168,85,247,0.05);border:1px solid rgba(168,85,247,0.15);border-radius:10px;"
+                                        >
+                                            <div
+                                                style="color:var(--purple);font-weight:700;font-size:12px;margin-bottom:6px;"
+                                            >
+                                                🔌 Interface Changes
+                                            </div>
+                                            <div
+                                                style="font-size:12px;color:var(--muted);line-height:1.6;"
+                                            >
+                                                Backward Compatibility Issues
+                                            </div>
+                                        </div>
+                                        <div
+                                            style="flex:1;min-width:140px;padding:14px;background:rgba(244,63,94,0.05);border:1px solid rgba(244,63,94,0.15);border-radius:10px;"
+                                        >
+                                            <div
+                                                style="color:var(--coral);font-weight:700;font-size:12px;margin-bottom:6px;"
+                                            >
+                                                ❌ Error Handling
+                                            </div>
+                                            <div
+                                                style="font-size:12px;color:var(--muted);line-height:1.6;"
+                                            >
+                                                Network Timeouts + Service
+                                                Outages
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-realworld">
+                                Real World Application
+                            </div>
+                            <div class="rw-card" style="margin-bottom:0;">
+                                <div class="rw-icon">🛍️</div>
+                                <div>
+                                    <div class="rw-label">
+                                        Amazon — Black Friday
+                                    </div>
+                                    <div class="rw-body">
+                                        Amazon's e-commerce platform faces
+                                        cascading performance challenges during
+                                        Black Friday — slow inter-service calls
+                                        can block upstream services and bring
+                                        down entire checkout flows.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-tradeoffs">
+                                Trade-offs
+                            </div>
+                            <table class="cb-tradeoffs-table">
+                                <thead
+                                    ><tr
+                                        ><th>Challenge</th><th>Impact</th><th
+                                            >Mitigation</th
+                                        ></tr
+                                    ></thead
+                                >
+                                <tbody>
+                                    <tr
+                                        ><td>Network Latency</td><td
+                                            class="cons">Adds 1–5ms+ per hop</td
+                                        ><td class="pros"
+                                            >Async processing, caching</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Backward Compatibility</td><td
+                                            class="cons"
+                                            >Breaking changes break consumers</td
+                                        ><td class="pros"
+                                            >API versioning, contract testing</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Error Handling</td><td class="cons"
+                                            >Cascading failures</td
+                                        ><td class="pros"
+                                            >Circuit breakers, timeouts</td
+                                        ></tr
+                                    >
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ═══ MODULE 3: CORE PATTERNS ═══ -->
+                    <section id="patterns" class="content-section">
+                        <div class="section-label">
+                            <span class="section-label-dot"></span>Module 03 ·
+                            Core Patterns
+                        </div>
+                        <h1 class="section-title">
+                            Core Communication Patterns
+                        </h1>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-concept">
+                                Concept Explanation
+                            </div>
+                            <p class="cb-concept">
+                                Patterns are categorized into <strong
+                                    style="color:var(--amber)"
+                                    >synchronous blocking</strong
+                                > (caller waits for response) and <strong
+                                    style="color:var(--purple)"
+                                    >asynchronous non-blocking</strong
+                                > (caller continues without waiting). This taxonomy
+                                helps choose based on coupling and latency needs.
+                            </p>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-example">Example</div>
+                            <div class="cb-example">
+                                <strong>Synchronous:</strong> for immediate validation
+                                (user submits a form, waits for confirmation). <strong
+                                    >Asynchronous:</strong
+                                > for background processing (video encoding, email
+                                sending).
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-diagram">
+                                Architecture Diagram
+                            </div>
+                            <div class="diagram-frame">
+                                <div class="d-col">
+                                    <div
+                                        class="d-node d-node-accent"
+                                        style="align-self:center;padding:10px 28px;"
+                                    >
+                                        Microservice Patterns
+                                    </div>
+                                    <div
+                                        class="d-row"
+                                        style="justify-content:center;gap:48px;margin-top:6px;"
+                                    >
+                                        <span
+                                            class="d-arrow"
+                                            style="font-size:20px;">↙</span
+                                        >
+                                        <span
+                                            class="d-arrow"
+                                            style="font-size:20px;">↘</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="d-row"
+                                        style="justify-content:space-around;flex-wrap:wrap;gap:16px;"
+                                    >
+                                        <div style="flex:1;min-width:160px;">
+                                            <div
+                                                class="d-node d-node-amber"
+                                                style="margin-bottom:10px;"
+                                            >
+                                                Synchronous Blocking
+                                            </div>
+                                            <div class="d-row">
+                                                <span class="d-arrow">→</span
+                                                ><div
+                                                    class="d-node d-node-teal"
+                                                >
+                                                    Request-Response
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="flex:1;min-width:200px;">
+                                            <div
+                                                class="d-node d-node-purple"
+                                                style="margin-bottom:10px;"
+                                            >
+                                                Async Non-Blocking
+                                            </div>
+                                            <div class="d-col" style="gap:8px;">
+                                                <div class="d-row">
+                                                    <span class="d-arrow"
+                                                        >→</span
+                                                    ><div
+                                                        class="d-node d-node-teal"
+                                                    >
+                                                        Shared Data
+                                                    </div>
+                                                </div>
+                                                <div class="d-row">
+                                                    <span class="d-arrow"
+                                                        >→</span
+                                                    ><div
+                                                        class="d-node d-node-teal"
+                                                    >
+                                                        Async Request-Response
+                                                    </div>
+                                                </div>
+                                                <div class="d-row">
+                                                    <span class="d-arrow"
+                                                        >→</span
+                                                    ><div
+                                                        class="d-node d-node-teal"
+                                                    >
+                                                        Event-Driven
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-realworld">
+                                Real World Application
+                            </div>
+                            <div class="rw-card" style="margin-bottom:0;">
+                                <div class="rw-icon">🚗</div>
+                                <div>
+                                    <div class="rw-label">
+                                        Uber — Mixed Patterns
+                                    </div>
+                                    <div class="rw-body">
+                                        Uber uses synchronous communication for
+                                        ride requests (immediate response
+                                        needed) and asynchronous for driver
+                                        notifications (fire-and-forget push
+                                        messages).
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-tradeoffs">
+                                Trade-offs
+                            </div>
+                            <table class="cb-tradeoffs-table">
+                                <thead
+                                    ><tr
+                                        ><th>Pattern</th><th>Pros</th><th
+                                            >Cons</th
+                                        ></tr
+                                    ></thead
+                                >
+                                <tbody>
+                                    <tr
+                                        ><td>Synchronous</td><td class="pros"
+                                            >Simple, instant feedback</td
+                                        ><td class="cons"
+                                            >Temporal coupling, cascading
+                                            failures</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Asynchronous</td><td class="pros"
+                                            >Decoupled, scalable</td
+                                        ><td class="cons"
+                                            >Eventual consistency, harder to
+                                            debug</td
+                                        ></tr
+                                    >
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ═══ MODULE 4: SYNCHRONOUS ═══ -->
+                    <section id="sync" class="content-section">
+                        <div class="section-label">
+                            <span class="section-label-dot"></span>Module 04 ·
+                            Communication Styles
+                        </div>
+                        <h1 class="section-title">Synchronous Blocking</h1>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-concept">
+                                Concept Explanation
+                            </div>
+                            <p class="cb-concept">
+                                The caller sends a request and blocks until a
+                                response arrives, following a request-response
+                                model. It's simple to implement and reason
+                                about, but creates <strong
+                                    style="color:var(--coral)"
+                                    >temporal coupling</strong
+                                > — both services must be running simultaneously —
+                                and risks <strong style="color:var(--coral)"
+                                    >cascading failures</strong
+                                > in long chains.
+                            </p>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-example">Example</div>
+                            <div class="cb-example">
+                                <strong
+                                    >Order service calls payment service</strong
+                                > and waits for confirmation before responding to
+                                the user. If payment takes 3 seconds, the user waits
+                                3 seconds.
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-diagram">
+                                Architecture Diagram
+                            </div>
+                            <div class="diagram-frame">
+                                <div class="d-col" style="gap:12px;">
+                                    <div
+                                        style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-family:var(--font-mono);"
+                                    >
+                                        Request Flow (blocks at each hop)
+                                    </div>
+                                    <div
+                                        class="d-row"
+                                        style="flex-wrap:wrap;gap:8px;"
+                                    >
+                                        <div class="d-node d-node-teal">
+                                            Client
+                                        </div>
+                                        <span class="d-arrow">→</span>
+                                        <div class="d-node d-node-accent">
+                                            API Gateway
+                                        </div>
+                                        <span class="d-arrow">→</span>
+                                        <div class="d-node d-node-purple">
+                                            Order Service
+                                        </div>
+                                        <span class="d-arrow">→</span>
+                                        <div class="d-node d-node-amber">
+                                            Payment Service<br /><small
+                                                style="font-size:10px;opacity:.6;"
+                                                >(Blocks...)</small
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-family:var(--font-mono);"
+                                    >
+                                        Response Flow (unblocks)
+                                    </div>
+                                    <div
+                                        class="d-row"
+                                        style="flex-wrap:wrap;gap:8px;justify-content:flex-end;"
+                                    >
+                                        <div class="d-node d-node-teal">
+                                            Client ✓
+                                        </div>
+                                        <span class="d-arrow">←</span>
+                                        <div class="d-node d-node-accent">
+                                            API Gateway
+                                        </div>
+                                        <span class="d-arrow">←</span>
+                                        <div class="d-node d-node-purple">
+                                            Order Service
+                                        </div>
+                                        <span class="d-arrow">←</span>
+                                        <div class="d-node d-node-amber">
+                                            Payment OK
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="terminal">
+                                <div class="terminal-header">
+                                    <span class="t-dot t-dot-r"></span><span
+                                        class="t-dot t-dot-y"></span><span
+                                        class="t-dot t-dot-g"></span>
+                                    <span class="terminal-filename"
+                                        >sync-call.cs</span
+                                    >
+                                </div>
+                                <div class="terminal-body">
+                                    <pre>app.MapGet("/users/&#123;id&#125;", (int id) =&gt;
+    Results.Ok(new &#123; Id = id, Name = "Alice" &#125;));
+
+// Caller BLOCKS until response arrives
+var res = await http.GetAsync("https://api.example.com/users/123");
+res.EnsureSuccessStatusCode();</pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-realworld">
+                                Real World Application
+                            </div>
+                            <div class="rw-card" style="margin-bottom:0;">
+                                <div class="rw-icon">🏘️</div>
+                                <div>
+                                    <div class="rw-label">
+                                        Airbnb — Booking Availability
+                                    </div>
+                                    <div class="rw-body">
+                                        Airbnb's booking system uses synchronous
+                                        calls for real-time availability checks
+                                        — the user must wait for the result
+                                        before the UI can display whether the
+                                        dates are available.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-tradeoffs">
+                                Trade-offs
+                            </div>
+                            <table class="cb-tradeoffs-table">
+                                <thead
+                                    ><tr
+                                        ><th>Aspect</th><th>Pros</th><th
+                                            >Cons</th
+                                        ></tr
+                                    ></thead
+                                >
+                                <tbody>
+                                    <tr
+                                        ><td>Simplicity</td><td class="pros"
+                                            >Easy to implement and debug</td
+                                        ><td class="cons"
+                                            >Long sync chains multiply latency</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Reliability</td><td class="pros"
+                                            >Immediate failure feedback</td
+                                        ><td class="cons"
+                                            >Cascading failures if downstream is
+                                            down</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Coupling</td><td class="pros"
+                                            >Clear request-response contract</td
+                                        ><td class="cons"
+                                            >Temporal coupling — both must be
+                                            alive</td
+                                        ></tr
+                                    >
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ═══ MODULE 5: ASYNC NON-BLOCKING ═══ -->
+                    <section id="async" class="content-section">
+                        <div class="section-label">
+                            <span class="section-label-dot"></span>Module 05 ·
+                            Communication Styles
+                        </div>
+                        <h1 class="section-title">Asynchronous Non-Blocking</h1>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-concept">
+                                Concept Explanation
+                            </div>
+                            <p class="cb-concept">
+                                The caller sends messages without waiting,
+                                enabling loose decoupling. The sender is free
+                                immediately after sending. Three sub-patterns
+                                exist: <strong style="color:var(--teal)"
+                                    >Shared Data</strong
+                                >, <strong style="color:var(--amber)"
+                                    >Async Request-Response</strong
+                                >, and <strong style="color:var(--purple)"
+                                    >Event-Driven</strong
+                                >.
+                            </p>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-example">Example</div>
+                            <div class="cb-example">
+                                <strong
+                                    >Sending an order update without blocking
+                                    the UI</strong
+                                > — the user sees "Order submitted!" immediately while
+                                the system processes asynchronously in the background.
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-diagram">
+                                Architecture Diagram
+                            </div>
+                            <div class="diagram-frame">
+                                <div class="d-col">
+                                    <div
+                                        class="d-row"
+                                        style="gap:8px;flex-wrap:wrap;"
+                                    >
+                                        <div class="d-node d-node-purple">
+                                            Sender
+                                        </div>
+                                        <span class="d-arrow"
+                                            >→ publishes →</span
+                                        >
+                                        <div class="d-node d-node-accent">
+                                            Message Broker / Queue
+                                        </div>
+                                        <span class="d-arrow">→ delivers →</span
+                                        >
+                                        <div class="d-node d-node-teal">
+                                            Receiver<br /><small
+                                                style="font-size:10px;opacity:.6;"
+                                                >(Async Process)</small
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted);font-family:var(--font-mono);"
+                                    >
+                                        No direct response path — Sender is free
+                                        immediately.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-realworld">
+                                Real World Application
+                            </div>
+                            <div class="rw-card" style="margin-bottom:0;">
+                                <div class="rw-icon">🎬</div>
+                                <div>
+                                    <div class="rw-label">
+                                        Netflix — Content Ingestion
+                                    </div>
+                                    <div class="rw-body">
+                                        Netflix's content ingestion pipeline
+                                        uses async for video encoding. Uploads
+                                        are accepted immediately and processing
+                                        (transcoding to 4K, HDR, etc.) happens
+                                        in background workers without blocking
+                                        the upload service.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-tradeoffs">
+                                Trade-offs
+                            </div>
+                            <table class="cb-tradeoffs-table">
+                                <thead
+                                    ><tr
+                                        ><th>Aspect</th><th>Pros</th><th
+                                            >Cons</th
+                                        ></tr
+                                    ></thead
+                                >
+                                <tbody>
+                                    <tr
+                                        ><td>Coupling</td><td class="pros"
+                                            >Loose — no temporal dependency</td
+                                        ><td class="cons"
+                                            >Harder to trace distributed flows</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Scalability</td><td class="pros"
+                                            >Absorbs traffic spikes via queue</td
+                                        ><td class="cons"
+                                            >Requires broker infra
+                                            (Kafka/RabbitMQ)</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Consistency</td><td class="pros"
+                                            >Resilient to downstream downtime</td
+                                        ><td class="cons"
+                                            >Eventual consistency only</td
+                                        ></tr
+                                    >
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ═══ MODULE 6: SHARED DATA ═══ -->
+                    <section id="shared-data" class="content-section">
+                        <div class="section-label">
+                            <span class="section-label-dot"></span>Module 06 ·
+                            Async Patterns
+                        </div>
+                        <h1 class="section-title">
+                            Communication Through Common Data
+                        </h1>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-concept">
+                                Concept Explanation
+                            </div>
+                            <p class="cb-concept">
+                                Services share data via a common store (e.g.,
+                                database or file system). One service writes
+                                data; another polls or reads it periodically.
+                                Simple to implement for large data transfers,
+                                but introduces high latency due to polling and
+                                coupling via schema.
+                            </p>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-example">Example</div>
+                            <div class="cb-example">
+                                <strong>Export service writes CSV to S3;</strong
+                                > the import service polls S3 every 5 minutes, detects
+                                new files, and processes them in batch.
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-diagram">
+                                Architecture Diagram
+                            </div>
+                            <div class="diagram-frame">
+                                <div class="d-col" style="gap:14px;">
+                                    <div
+                                        class="d-row"
+                                        style="gap:8px;flex-wrap:wrap;"
+                                    >
+                                        <div class="d-node d-node-teal">
+                                            Service A
+                                        </div>
+                                        <span class="d-arrow"
+                                            >─── Write ──→</span
+                                        >
+                                        <div class="d-node d-node-amber">
+                                            Shared DB / S3
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="d-row"
+                                        style="gap:8px;flex-wrap:wrap;padding-left:24px;"
+                                    >
+                                        <div class="d-node d-node-purple">
+                                            Service B
+                                        </div>
+                                        <span class="d-arrow"
+                                            >←── Poll / Read ───</span
+                                        >
+                                        <div class="d-node d-node-amber">
+                                            Shared DB / S3
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="text-align:center;font-size:11px;color:var(--muted);font-family:var(--font-mono);"
+                                    >
+                                        Service B reads at its own pace → high
+                                        latency, no direct connection.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="terminal">
+                                <div class="terminal-header">
+                                    <span class="t-dot t-dot-r"></span><span
+                                        class="t-dot t-dot-y"></span><span
+                                        class="t-dot t-dot-g"></span>
+                                    <span class="terminal-filename"
+                                        >shared-data.cs</span
+                                    >
+                                </div>
+                                <div class="terminal-body">
+                                    <pre>// Writer service
+context.Ledger.Add(new LedgerEntry &#123; Type = "credit", Amount = 100 &#125;);
+await context.SaveChangesAsync();
+
+// Reader service polls for new entries
+var recent = await context.Ledger
+    .Where(x =&gt; x.CreatedAt &gt; DateTime.UtcNow.AddMinutes(-5))
+    .ToListAsync();</pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-realworld">
+                                Real World Application
+                            </div>
+                            <div class="rw-card" style="margin-bottom:0;">
+                                <div class="rw-icon">✈️</div>
+                                <div>
+                                    <div class="rw-label">
+                                        Airbnb — Data Pipelines
+                                    </div>
+                                    <div class="rw-body">
+                                        Airbnb's analytics pipelines use Amazon
+                                        S3 for batch data exchange — one service
+                                        exports nightly data exports, another
+                                        processes them in large Spark batch jobs
+                                        the following morning.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-tradeoffs">
+                                Trade-offs
+                            </div>
+                            <table class="cb-tradeoffs-table">
+                                <thead
+                                    ><tr
+                                        ><th>Aspect</th><th>Pros</th><th
+                                            >Cons</th
+                                        ></tr
+                                    ></thead
+                                >
+                                <tbody>
+                                    <tr
+                                        ><td>Simplicity</td><td class="pros"
+                                            >Simple to implement with standard
+                                            DB</td
+                                        ><td class="cons"
+                                            >Polling wastes resources</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Latency</td><td class="pros"
+                                            >Works for batch/large data</td
+                                        ><td class="cons"
+                                            >High latency due to poll interval</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Coupling</td><td class="pros"
+                                            >No direct service dependency</td
+                                        ><td class="cons"
+                                            >Coupled via shared data schema</td
+                                        ></tr
+                                    >
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ═══ MODULE 7: ASYNC REQUEST-RESPONSE ═══ -->
+                    <section id="async-rr" class="content-section">
+                        <div class="section-label">
+                            <span class="section-label-dot"></span>Module 07 ·
+                            Async Patterns
+                        </div>
+                        <h1 class="section-title">
+                            Asynchronous Request-Response
+                        </h1>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-concept">
+                                Concept Explanation
+                            </div>
+                            <p class="cb-concept">
+                                Uses message queues for non-blocking requests
+                                with <strong style="color:var(--accent-2)"
+                                    >correlation IDs</strong
+                                > to match responses back to their original requests.
+                                Eliminates temporal coupling while still delivering
+                                a result — but requires state management and a reply
+                                queue.
+                            </p>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-example">Example</div>
+                            <div class="cb-example">
+                                <strong
+                                    >Order service queues a shipping request</strong
+                                > with a unique correlation ID. The shipping service
+                                processes it and sends the response to a reply queue.
+                                Order service reads the reply queue and matches it
+                                using the correlation ID.
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-diagram">
+                                Architecture Diagram
+                            </div>
+                            <div class="diagram-frame">
+                                <div class="d-col" style="gap:12px;">
+                                    <div
+                                        class="d-row"
+                                        style="gap:8px;flex-wrap:wrap;"
+                                    >
+                                        <div class="d-node d-node-accent">
+                                            Order Service
+                                        </div>
+                                        <span class="d-arrow"
+                                            >→ Request + CorrID →</span
+                                        >
+                                        <div class="d-node d-node-amber">
+                                            Queue
+                                        </div>
+                                        <span class="d-arrow">→</span>
+                                        <div class="d-node d-node-teal">
+                                            Shipping Service
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="d-row"
+                                        style="gap:8px;flex-wrap:wrap;justify-content:flex-end;"
+                                    >
+                                        <div class="d-node d-node-accent">
+                                            Order Service
+                                        </div>
+                                        <span class="d-arrow"
+                                            >← Response + CorrID ←</span
+                                        >
+                                        <div class="d-node d-node-amber">
+                                            Reply Queue
+                                        </div>
+                                        <span class="d-arrow">←</span>
+                                        <div class="d-node d-node-teal">
+                                            Shipping Service
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="text-align:center;font-size:11px;color:var(--muted);font-family:var(--font-mono);"
+                                    >
+                                        Correlation ID links the async response
+                                        to the original request.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="terminal">
+                                <div class="terminal-header">
+                                    <span class="t-dot t-dot-r"></span><span
+                                        class="t-dot t-dot-y"></span><span
+                                        class="t-dot t-dot-g"></span>
+                                    <span class="terminal-filename"
+                                        >async-rr.cs</span
+                                    >
+                                </div>
+                                <div class="terminal-body">
+                                    <pre>// API returns 202 Accepted immediately
+app.MapPost("/video/encode", async (Video v) =&gt; &#123;
+    var id = Guid.NewGuid();
+    await queue.SendAsync(new EncodeTask(id, v.Url));
+    return Results.Accepted($"/video/encode/&#123;id&#125;");
+&#125;);
+
+// Client polls: GET /video/encode/&#123;id&#125; → 200 OK, Status: DONE</pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-realworld">
+                                Real World Application
+                            </div>
+                            <div class="rw-card" style="margin-bottom:0;">
+                                <div class="rw-icon">🚙</div>
+                                <div>
+                                    <div class="rw-label">
+                                        Uber — Driver Matching
+                                    </div>
+                                    <div class="rw-body">
+                                        Uber's matching system queues
+                                        driver-rider match requests
+                                        asynchronously to handle massive load
+                                        spikes during peak hours without
+                                        blocking the requesting service.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-tradeoffs">
+                                Trade-offs
+                            </div>
+                            <table class="cb-tradeoffs-table">
+                                <thead
+                                    ><tr
+                                        ><th>Aspect</th><th>Pros</th><th
+                                            >Cons</th
+                                        ></tr
+                                    ></thead
+                                >
+                                <tbody>
+                                    <tr
+                                        ><td>Coupling</td><td class="pros"
+                                            >No temporal coupling — async</td
+                                        ><td class="cons"
+                                            >Requires correlation ID state
+                                            management</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Reliability</td><td class="pros"
+                                            >Queue buffers load spikes</td
+                                        ><td class="cons"
+                                            >At-least-once delivery needs
+                                            idempotency</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Complexity</td><td class="pros"
+                                            >Good for long-running tasks</td
+                                        ><td class="cons"
+                                            >More complex than direct sync calls</td
+                                        ></tr
+                                    >
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ═══ MODULE 8: EVENT-DRIVEN ═══ -->
+                    <section id="event-driven" class="content-section">
+                        <div class="section-label">
+                            <span class="section-label-dot"></span>Module 08 ·
+                            Async Patterns
+                        </div>
+                        <h1 class="section-title">
+                            Event-Driven Communication
+                        </h1>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-concept">
+                                Concept Explanation
+                            </div>
+                            <p class="cb-concept">
+                                Services emit events via brokers; consumers
+                                subscribe and react. Promotes loose coupling
+                                through <strong style="color:var(--purple)"
+                                    >inversion of responsibility</strong
+                                > — the producer emits facts (past-tense events) and
+                                doesn't dictate what consumers should do. Adds complexity
+                                in event ordering and delivery guarantees.
+                            </p>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-example">Example</div>
+                            <div class="cb-example">
+                                <strong
+                                    >Order service emits <code
+                                        style="color:var(--teal)"
+                                        >OrderShipped</code
+                                    ></strong
+                                > event. The notification service subscribes and sends
+                                an email. The inventory service subscribes and updates
+                                stock. Neither consumer is known to the producer.
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-diagram">
+                                Architecture Diagram
+                            </div>
+                            <div class="diagram-frame">
+                                <div class="d-col" style="gap:12px;">
+                                    <div
+                                        class="d-row"
+                                        style="gap:8px;flex-wrap:wrap;"
+                                    >
+                                        <div class="d-node d-node-teal">
+                                            Order Service<br /><small
+                                                style="font-size:10px;opacity:.6;"
+                                                >Publish OrderShipped</small
+                                            >
+                                        </div>
+                                        <span class="d-arrow">→ Event →</span>
+                                        <div class="d-node d-node-accent">
+                                            Kafka / SNS Broker<br /><small
+                                                style="font-size:10px;opacity:.6;"
+                                                >(Topic)</small
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="padding-left:40px;font-size:12px;color:var(--muted);font-family:var(--font-mono);"
+                                    >
+                                        ↓ Subscribers
+                                    </div>
+                                    <div
+                                        class="d-row"
+                                        style="gap:12px;flex-wrap:wrap;"
+                                    >
+                                        <div class="d-node d-node-amber">
+                                            Notification Service<br /><small
+                                                style="font-size:10px;opacity:.6;"
+                                                >→ sends email</small
+                                            >
+                                        </div>
+                                        <div class="d-node d-node-purple">
+                                            Inventory Service<br /><small
+                                                style="font-size:10px;opacity:.6;"
+                                                >→ updates stock</small
+                                            >
+                                        </div>
+                                        <div class="d-node d-node-coral">
+                                            Analytics Service<br /><small
+                                                style="font-size:10px;opacity:.6;"
+                                                >→ records event</small
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="terminal">
+                                <div class="terminal-header">
+                                    <span class="t-dot t-dot-r"></span><span
+                                        class="t-dot t-dot-y"></span><span
+                                        class="t-dot t-dot-g"></span>
+                                    <span class="terminal-filename"
+                                        >event-driven.cs</span
+                                    >
+                                </div>
+                                <div class="terminal-body">
+                                    <pre>// Producer: past-tense event name
+public record OrderCreated(int OrderId);
+await bus.Publish(new OrderCreated(123));
+
+// Consumer: reacts independently, no coupling to producer
+public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
+    public Task Consume(ConsumeContext&lt;OrderCreated&gt; ctx) =&gt;
+        NotifyShipping(ctx.Message.OrderId);
+&#125;</pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-realworld">
+                                Real World Application
+                            </div>
+                            <div class="rw-card" style="margin-bottom:0;">
+                                <div class="rw-icon">📦</div>
+                                <div>
+                                    <div class="rw-label">
+                                        Amazon — Order Processing
+                                    </div>
+                                    <div class="rw-body">
+                                        Amazon's order system emits events for
+                                        inventory updates, consumed by
+                                        warehouse, analytics, and shipping
+                                        services simultaneously — none of which
+                                        the Order Service needs to know about.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-tradeoffs">
+                                Trade-offs
+                            </div>
+                            <table class="cb-tradeoffs-table">
+                                <thead
+                                    ><tr
+                                        ><th>Aspect</th><th>Pros</th><th
+                                            >Cons</th
+                                        ></tr
+                                    ></thead
+                                >
+                                <tbody>
+                                    <tr
+                                        ><td>Coupling</td><td class="pros"
+                                            >Zero consumer coupling — fully
+                                            decoupled</td
+                                        ><td class="cons"
+                                            >Hard to reason about overall flow</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Scalability</td><td class="pros"
+                                            >Fan-out to many consumers</td
+                                        ><td class="cons"
+                                            >Event ordering is complex</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td>Reliability</td><td class="pros"
+                                            >Consumers can retry independently</td
+                                        ><td class="cons"
+                                            >Idempotency required for duplicates</td
+                                        ></tr
+                                    >
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ═══ MODULE 9: TECHNOLOGY CHOICES ═══ -->
+                    <section id="technology" class="content-section">
+                        <div class="section-label">
+                            <span class="section-label-dot"></span>Module 09 ·
+                            Technology & Summary
+                        </div>
+                        <h1 class="section-title">Technology Choices</h1>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-concept">
+                                Concept Explanation
+                            </div>
+                            <p class="cb-concept">
+                                Technologies like <strong
+                                    style="color:var(--amber)"
+                                    >RPC (gRPC/SOAP)</strong
+                                >, <strong style="color:var(--teal)"
+                                    >REST</strong
+                                >, and <strong style="color:var(--purple)"
+                                    >message brokers (Kafka/RabbitMQ)</strong
+                                > implement the patterns. Choose based on: backward
+                                compatibility needs, explicit interface contracts,
+                                consumer simplicity, and encapsulation requirements.
+                            </p>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-example">Example</div>
+                            <div class="cb-example">
+                                <strong>gRPC</strong> for efficient RPC between internal
+                                services in a polyglot environment. <strong
+                                    >REST</strong
+                                > for public-facing APIs where developer simplicity
+                                matters. <strong>Kafka</strong> for high-throughput
+                                event streaming.
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-diagram">
+                                Architecture Diagram
+                            </div>
+                            <div class="diagram-frame">
+                                <div class="d-col" style="gap:20px;">
+                                    <div>
+                                        <div
+                                            style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);font-family:var(--font-mono);margin-bottom:8px;"
+                                        >
+                                            RPC (gRPC / SOAP)
+                                        </div>
+                                        <div
+                                            class="d-row"
+                                            style="gap:8px;flex-wrap:wrap;"
+                                        >
+                                            <div class="d-node d-node-amber">
+                                                Client Stub
+                                            </div>
+                                            <span class="d-arrow"
+                                                >→ Network →</span
+                                            >
+                                            <div class="d-node d-node-amber">
+                                                Server (Schema-Driven)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div
+                                            style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);font-family:var(--font-mono);margin-bottom:8px;"
+                                        >
+                                            REST
+                                        </div>
+                                        <div
+                                            class="d-row"
+                                            style="gap:8px;flex-wrap:wrap;"
+                                        >
+                                            <div class="d-node d-node-teal">
+                                                Client
+                                            </div>
+                                            <span class="d-arrow"
+                                                >→ HTTP Method + URI →</span
+                                            >
+                                            <div class="d-node d-node-teal">
+                                                Resource
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div
+                                            style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--purple);font-family:var(--font-mono);margin-bottom:8px;"
+                                        >
+                                            Message Broker (Kafka / RabbitMQ)
+                                        </div>
+                                        <div
+                                            class="d-row"
+                                            style="gap:8px;flex-wrap:wrap;"
+                                        >
+                                            <div class="d-node d-node-purple">
+                                                Producer
+                                            </div>
+                                            <span class="d-arrow"
+                                                >→ Queue / Topic →</span
+                                            >
+                                            <div class="d-node d-node-purple">
+                                                Consumer
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-realworld">
+                                Real World Application
+                            </div>
+                            <div class="rw-card" style="margin-bottom:0;">
+                                <div class="rw-icon">🔍</div>
+                                <div>
+                                    <div class="rw-label">
+                                        Google — gRPC Creator
+                                    </div>
+                                    <div class="rw-body">
+                                        Google invented gRPC and uses it for
+                                        internal microservices communication
+                                        where binary performance is critical.
+                                        REST is used for external
+                                        developer-facing APIs (YouTube Data API,
+                                        Maps API).
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-tradeoffs">
+                                Trade-offs
+                            </div>
+                            <table class="cb-tradeoffs-table">
+                                <thead
+                                    ><tr
+                                        ><th>Technology</th><th>Pros</th><th
+                                            >Cons</th
+                                        ></tr
+                                    ></thead
+                                >
+                                <tbody>
+                                    <tr
+                                        ><td
+                                            ><span class="tag tag-amber"
+                                                >gRPC</span
+                                            ></td
+                                        ><td class="pros"
+                                            >Binary, fast, schema-first,
+                                            polyglot</td
+                                        ><td class="cons"
+                                            >Not human-readable, complex tooling</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td
+                                            ><span class="tag tag-teal"
+                                                >REST</span
+                                            ></td
+                                        ><td class="pros"
+                                            >Simple, human-readable, universal</td
+                                        ><td class="cons"
+                                            >Verbose, no streaming out-of-box</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td
+                                            ><span class="tag tag-purple"
+                                                >Kafka</span
+                                            ></td
+                                        ><td class="pros"
+                                            >High throughput, durable, replay</td
+                                        ><td class="cons"
+                                            >Complex ops, eventual consistency</td
+                                        ></tr
+                                    >
+                                    <tr
+                                        ><td
+                                            ><span class="tag tag-coral"
+                                                >RabbitMQ</span
+                                            ></td
+                                        ><td class="pros"
+                                            >Flexible routing, easy to set up</td
+                                        ><td class="cons"
+                                            >Less scalable than Kafka at volume</td
+                                        ></tr
+                                    >
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ═══ MODULE 10: SUMMARY ═══ -->
+                    <section id="summary" class="content-section">
+                        <div class="section-label">
+                            <span class="section-label-dot"></span>Module 10 ·
+                            Technology & Summary
+                        </div>
+                        <h1 class="section-title">Summary & Decision Making</h1>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-concept">
+                                Concept Explanation
+                            </div>
+                            <p class="cb-concept">
+                                No one-size-fits-all pattern. Select based on
+                                scenario needs, balancing <strong
+                                    style="color:var(--accent-2)"
+                                    >coupling</strong
+                                >, <strong style="color:var(--amber)"
+                                    >latency</strong
+                                >, <strong style="color:var(--teal)"
+                                    >scalability</strong
+                                >, and <strong style="color:var(--coral)"
+                                    >operational complexity</strong
+                                >. The right pattern depends on whether you need
+                                an immediate response, can tolerate eventual
+                                consistency, and how many consumers exist.
+                            </p>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-example">Example</div>
+                            <div class="cb-example">
+                                <strong>Use sync</strong> for UI queries (user waits).
+                                <strong>Use async</strong> for decoupling heavy tasks.
+                                <strong>Use events</strong> for fan-out broadcasts.
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-diagram">
+                                Decision Tree
+                            </div>
+                            <div class="diagram-frame">
+                                <table class="decision-table" style="margin:0;">
+                                    <thead>
+                                        <tr
+                                            ><th>Need Immediate Response?</th
+                                            ><th>Need Result?</th><th
+                                                >Many Consumers?</th
+                                            ><th>→ Pattern</th></tr
+                                        >
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            ><td>✅ Yes</td><td>✅ Yes</td><td
+                                                >—</td
+                                            ><td
+                                                ><span class="tag tag-teal"
+                                                    >Sync REST / gRPC</span
+                                                ></td
+                                            ></tr
+                                        >
+                                        <tr
+                                            ><td>❌ No</td><td>✅ Yes</td><td
+                                                >❌ No</td
+                                            ><td
+                                                ><span class="tag tag-amber"
+                                                    >Async Request-Response</span
+                                                ></td
+                                            ></tr
+                                        >
+                                        <tr
+                                            ><td>❌ No</td><td>❌ No</td><td
+                                                >✅ Yes</td
+                                            ><td
+                                                ><span class="tag tag-purple"
+                                                    >Event-Driven</span
+                                                ></td
+                                            ></tr
+                                        >
+                                        <tr
+                                            ><td>❌ No</td><td>❌ No</td><td
+                                                >—</td
+                                            ><td
+                                                ><span class="tag tag-coral"
+                                                    >Shared Data</span
+                                                ></td
+                                            ></tr
+                                        >
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-realworld">
+                                Real World Application
+                            </div>
+                            <div class="rw-card" style="margin-bottom:0;">
+                                <div class="rw-icon">🎬</div>
+                                <div>
+                                    <div class="rw-label">
+                                        Netflix — All Patterns Combined
+                                    </div>
+                                    <div class="rw-body">
+                                        Netflix combines every pattern: sync
+                                        REST for user queries (playback,
+                                        search), async queues for video
+                                        encoding, event-driven Kafka for the
+                                        recommendation pipeline, shared data via
+                                        Cassandra for user viewing history.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cb-block">
+                            <div class="cb-label cb-label-insight">
+                                System Design Insights
+                            </div>
+                            <div class="insight-card" style="margin-bottom:0;">
+                                <div class="insight-icon">🗂️</div>
+                                <div>
+                                    <div class="insight-title">
+                                        Architecture Cheat Sheet
+                                    </div>
+                                    <div class="insight-body">
+                                        <strong>Sync:</strong> Direct HTTP/gRPC →
+                                        immediate user-facing feedback<br />
+                                        <strong>Async Shared:</strong> DB/File Poll
+                                        → legacy integration, batch<br />
+                                        <strong>Async RR:</strong> Queues + Correlation
+                                        ID → long-running tasks<br />
+                                        <strong>Event-Driven:</strong> Broker Pub-Sub
+                                        → decoupled domain broadcasts<br />
+                                        <br />
+                                        <strong>Common mistakes:</strong> Long sync
+                                        chains · ignoring event ordering · no dead-letter
+                                        queues
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ═══ OVERVIEW DIAGRAM ═══ -->
+                    <section id="overview-diagram" class="content-section">
+                        <div class="section-label">
+                            <span class="section-label-dot"></span>Resource ·
+                            Overview
+                        </div>
+                        <h1 class="section-title">Overview Diagram</h1>
+                        <p class="section-lead">
+                            A visual summary of all four communication patterns
+                            connected through a central architecture hub.
+                        </p>
+                        <div class="max-w-[calc(100vw-340px)] -ml-4 my-8">
+                            <SystemDiagram />
+                        </div>
+                    </section>
+                </main>
+            </div><!-- /learn-shell -->
+
+            <!-- ═══ NEW SECTIONS injected here by script ═══ -->
+        </div><!-- /app-shell -->
+
+        <!-- ═══ AI CHATBOX ═══ -->
+        <div class="project-chatbox" data-chatbox-root>
+            <div class="chatbox-panel" data-chatbox-panel aria-hidden="true">
+                <div class="chatbox-header">
+                    <div>
+                        <strong>AI Assistant</strong><p>
+                            Ask anything about microservice communication
+                            patterns.
+                        </p>
+                    </div>
+                    <button
+                        type="button"
+                        class="chatbox-close"
+                        data-chatbox-close
+                        aria-label="Close">✕</button
+                    >
+                </div>
+                <div class="chatbox-messages" data-chatbox-messages></div>
+                <form class="chatbox-form" data-chatbox-form>
+                    <input
+                        type="text"
+                        name="message"
+                        maxlength="500"
+                        placeholder="Ask about sync, async, Kafka, gRPC..."
+                        autocomplete="off"
+                        required
+                    />
+                    <button type="submit">→</button>
+                </form>
+            </div>
+            <button
+                type="button"
+                class="chatbox-toggle"
+                data-chatbox-toggle
+                aria-label="Open AI assistant"
+                aria-expanded="false"
+            >
+                ✦ Ask AI
+            </button>
+        </div>
+
+        <script>
+            /* ── GATE DATA ─────────────────────────────────────── */
+            const GATE = {
+                intro: {
+                    next: "challenges",
+                    qs: [
+                        {
+                            q: "What is the primary difference between a monolith and microservices communication?",
+                            opts: [
+                                "Monoliths use databases; microservices do not",
+                                "Monoliths use in-process method calls; microservices use network calls",
+                                "Microservices are always synchronous",
+                                "Monoliths rely heavily on serialization",
+                            ],
+                            correct: 1,
+                            explain:
+                                "In a monolith, components communicate via direct method execution in memory. Microservices must communicate over a network, introducing serialization and latency.",
+                        },
+                        {
+                            q: "Which of the following is a key requirement for microservices to form a cohesive system?",
+                            opts: [
+                                "They must share the exact same database",
+                                "They must communicate effectively with each other",
+                                "They must be written in the same programming language",
+                                "They must run on a single physical server",
+                            ],
+                            correct: 1,
+                            explain:
+                                "Because microservices are decomposed independently, they must communicate accurately and efficiently to fulfill overall system capabilities.",
+                        },
+                        {
+                            q: "What major risk is introduced when moving from in-process calls to network calls?",
+                            opts: [
+                                "Faster execution times",
+                                "Inability to use APIs",
+                                "Partial failures & unpredictable latency",
+                                "Strict typing enforcement",
+                            ],
+                            correct: 2,
+                            explain:
+                                "Network communication can drop packets, experience latency spikes, or hit unavailable services, resulting in partial failures.",
+                        },
+                    ],
+                },
+                challenges: {
+                    next: "patterns",
+                    qs: [
+                        {
+                            q: "If a user-facing checkout service calls 5 downstream services synchronously, what is the main risk?",
+                            opts: [
+                                "The checkout service becomes stateless",
+                                "Cascading failures and accumulated latency",
+                                "The database will duplicate records",
+                                "Events will arrive out of order",
+                            ],
+                            correct: 1,
+                            explain:
+                                "In a sync chain, if any of the 5 downstream services fail or slow down, the entire checkout process blocks and potentially fails.",
+                        },
+                        {
+                            q: "What does 'Temporal Coupling' mean in distributed systems?",
+                            opts: [
+                                "Services must use the same timestamp format",
+                                "Both caller and callee must be alive and reachable at the exact same time",
+                                "Deployments must happen exactly at midnight",
+                                "Services share the same database tables",
+                            ],
+                            correct: 1,
+                            explain:
+                                "Synchronous HTTP calls require both services to be operational simultaneously; otherwise, the request fails.",
+                        },
+                        {
+                            q: "How can deep synchronous dependency chains affect overall system availability?",
+                            opts: [
+                                "They mathematically reduce total availability",
+                                "They increase system availability",
+                                "They have no impact on availability",
+                                "They improve load balancing",
+                            ],
+                            correct: 0,
+                            explain:
+                                "If service A depends on B and C, the availability of A is constrained by the combined availability of B and C.",
+                        },
+                    ],
+                },
+                patterns: {
+                    next: "sync",
+                    qs: [
+                        {
+                            q: "What are the two primary styles of microservice communication?",
+                            opts: [
+                                "TCP and UDP",
+                                "Synchronous Blocking and Asynchronous Non-Blocking",
+                                "Monolithic and Distributed",
+                                "Database and Cache",
+                            ],
+                            correct: 1,
+                            explain:
+                                "Communication patterns generally fall into synchronous (waiting for a response) and asynchronous (fire-and-forget or polling) styles.",
+                        },
+                        {
+                            q: "When a user expects an immediate confirmation on their screen, which style is typically best?",
+                            opts: [
+                                "Synchronous Blocking",
+                                "Event-Driven",
+                                "Shared Data",
+                                "Async Queues",
+                            ],
+                            correct: 0,
+                            explain:
+                                "Synchronous Blocking is ideal for real-time, user-facing interactions where the client needs an immediate result.",
+                        },
+                        {
+                            q: "When a task takes 5 minutes to process, which style should be used to prevent tying up the web server?",
+                            opts: [
+                                "Synchronous HTTP",
+                                "Synchronous gRPC",
+                                "Asynchronous Non-Blocking",
+                                "Direct Database queries",
+                            ],
+                            correct: 2,
+                            explain:
+                                "Asynchronous communication offloads long-running tasks so the web server can immediately return a 202 Accepted to the user.",
+                        },
+                    ],
+                },
+                sync: {
+                    next: "async",
+                    qs: [
+                        {
+                            q: "Which protocol is the most common example of Synchronous Blocking communication?",
+                            opts: [
+                                "Kafka Event Streams",
+                                "HTTP/REST",
+                                "AMQP",
+                                "MQTT",
+                            ],
+                            correct: 1,
+                            explain:
+                                "HTTP/REST APIs are inherently synchronous; the client opens a TCP connection and waits for the server's HTTP response.",
+                        },
+                        {
+                            q: "What is a major advantage of the Synchronous Blocking pattern?",
+                            opts: [
+                                "It scales infinitely without constraints",
+                                "It completely decouples sender and receiver",
+                                "It is simple to implement and understand linearly",
+                                "It automatically handles outages",
+                            ],
+                            correct: 2,
+                            explain:
+                                "Synchronous calls follow a standard request-response mental model, making them easy to write, debug, and trace.",
+                        },
+                        {
+                            q: "To mitigate the risks of Synchronous Blocking chains, what architectural component is often introduced?",
+                            opts: [
+                                "Message Brokers",
+                                "API Gateways",
+                                "Circuit Breakers",
+                                "Shared Databases",
+                            ],
+                            correct: 2,
+                            explain:
+                                "Circuit Breakers detect failures in downstream sync calls and fail fast, preventing cascading resource exhaustion.",
+                        },
+                    ],
+                },
+                async: {
+                    next: "shared-data",
+                    qs: [
+                        {
+                            q: "Which of the following is NOT an Asynchronous Non-Blocking sub-pattern?",
+                            opts: [
+                                "Shared Data",
+                                "Async Request-Response",
+                                "Synchronous gRPC",
+                                "Event-Driven",
+                            ],
+                            correct: 2,
+                            explain:
+                                "gRPC is a high-performance framework but is primarily used for synchronous Request/Reply patterns.",
+                        },
+                        {
+                            q: "In an asynchronous pattern, what does the sender typically do after sending a message?",
+                            opts: [
+                                "Blocks its thread until the receiver finishes",
+                                "Continues its own processing immediately",
+                                "Shuts down to save resources",
+                                "Polls the socket repeatedly",
+                            ],
+                            correct: 1,
+                            explain:
+                                "The defining trait of async is that the sender does not block waiting for the receiver to process the payload.",
+                        },
+                        {
+                            q: "Which architectural components are predominantly used to facilitate async patterns?",
+                            opts: [
+                                "Load Balancers and Firewalls",
+                                "Message Brokers and Event Buses",
+                                "API Gateways and Proxies",
+                                "DNS Servers",
+                            ],
+                            correct: 1,
+                            explain:
+                                "Brokers (like RabbitMQ) and Buses (like Kafka) store messages asynchronously until consumers are ready to process them.",
+                        },
+                    ],
+                },
+                "shared-data": {
+                    next: "async-rr",
+                    qs: [
+                        {
+                            q: "How does the receiver know there is new information in the Shared Data pattern?",
+                            opts: [
+                                "Sender makes a REST call to the receiver",
+                                "Receiver polls the shared data store periodically",
+                                "A message broker pushes the data",
+                                "The database triggers a webhook",
+                            ],
+                            correct: 1,
+                            explain:
+                                "In Shared Data, the downstream service proactively polls the database or storage bucket at defined intervals.",
+                        },
+                        {
+                            q: "What is the primary drawback of the Shared Data pattern?",
+                            opts: [
+                                "Tight coupling to a specific data schema and high polling latency",
+                                "It restricts data to only 1MB per file",
+                                "It requires WebSockets",
+                                "Senders must wait for receivers to finish",
+                            ],
+                            correct: 0,
+                            explain:
+                                "Polling introduces delays, and both services must understand the exact database schema, creating tight structural coupling.",
+                        },
+                        {
+                            q: "When is the Shared Data pattern highly appropriate?",
+                            opts: [
+                                "When users need millisecond real-time chat",
+                                "When transferring massive nightly batch files between legacy systems",
+                                "When triggering immediate webhooks",
+                                "For internal authentication routing",
+                            ],
+                            correct: 1,
+                            explain:
+                                "Shared Data (like an S3 bucket) is excellent for massive payloads or integrating with legacy batch systems that lack API capabilities.",
+                        },
+                    ],
+                },
+                "async-rr": {
+                    next: "event-driven",
+                    qs: [
+                        {
+                            q: "If an asynchronous response arrives on a totally different queue, how does the original sender identify which request it belongs to?",
+                            opts: [
+                                "By guessing based on the timestamp",
+                                "Using a shared database lock",
+                                "By matching the Correlation ID",
+                                "By using the sender's IP address",
+                            ],
+                            correct: 2,
+                            explain:
+                                "A Correlation ID is generated by the sender, attached to the request, and echoed back verbatim in the receiver's response.",
+                        },
+                        {
+                            q: "How does Async Request-Response differ from Event-Driven communication?",
+                            opts: [
+                                "Async R-R requires an explicit reply directed back; Event-Driven focuses on broadcasting facts.",
+                                "Async R-R uses HTTP; Event-Driven uses gRPC.",
+                                "Async R-R is actually synchronous.",
+                                "There is no difference.",
+                            ],
+                            correct: 0,
+                            explain:
+                                "In Async R-R, the sender expects a specific answer back (via a reply queue). In Event-Driven, the sender just announces a fact and doesn't care who listens.",
+                        },
+                        {
+                            q: "What is a common architectural pattern used to implement Async Request-Response?",
+                            opts: [
+                                "A single REST endpoint",
+                                "A Request Queue and a dedicated Reply Queue",
+                                "A GraphQL Gateway",
+                                "A shared SQLite file",
+                            ],
+                            correct: 1,
+                            explain:
+                                "The sender pushes to a Request Queue and listens on a Reply Queue, avoiding holding open network connections.",
+                        },
+                    ],
+                },
+                "event-driven": {
+                    next: "technology",
+                    qs: [
+                        {
+                            q: "What is the key principle of responsibility in the Event-Driven pattern?",
+                            opts: [
+                                "The sender determines exactly what the receiver should do",
+                                "The receiver must ask the sender for permission",
+                                "The sender emits a fact, and independent receivers decide how to react",
+                                "The API Gateway dictates all logic",
+                            ],
+                            correct: 2,
+                            explain:
+                                "Event-driven architectures invert coupling: producers just broadcast state changes, leaving the business logic of 'reacting' entirely to subscribers.",
+                        },
+                        {
+                            q: "Which of the following is the most appropriately named event?",
+                            opts: [
+                                "UpdateUserRecord",
+                                "HandleCheckoutProcess",
+                                "OrderCreated",
+                                "RunPayment",
+                            ],
+                            correct: 2,
+                            explain:
+                                "Events should be named in the past tense ('OrderCreated') because they represent immutable facts that have already occurred, not commands.",
+                        },
+                        {
+                            q: "If you need to broadcast a 'UserRegistered' event to 3 different services, which pattern is best?",
+                            opts: [
+                                "Shared Data",
+                                "Event-Driven Pub-Sub",
+                                "Synchronous REST calls to all three",
+                                "Async Request-Response",
+                            ],
+                            correct: 1,
+                            explain:
+                                "Pub-Sub allows one broadcast to reach multiple independent consumers without the producer needing to know about them.",
+                        },
+                    ],
+                },
+                technology: {
+                    next: "summary",
+                    qs: [
+                        {
+                            q: "For a public-facing API consumed by browsers and mobile apps, which technology is the standard?",
+                            opts: [
+                                "gRPC",
+                                "Kafka",
+                                "RabbitMQ",
+                                "REST/JSON via HTTP",
+                            ],
+                            correct: 3,
+                            explain:
+                                "REST with JSON is universally supported, human-readable, and easily consumed by frontend frameworks and external partners.",
+                        },
+                        {
+                            q: "Why is gRPC often preferred for internal, service-to-service communication?",
+                            opts: [
+                                "It uses bulky XML which is easier to debug",
+                                "It utilizes fast binary Protocol Buffers and HTTP/2 multiplexing",
+                                "It doesn't require schema definitions",
+                                "It runs inherently asynchronously",
+                            ],
+                            correct: 1,
+                            explain:
+                                "gRPC's binary nature and HTTP/2 usage make it significantly faster than JSON payloads, making it ideal for dense internal service networks.",
+                        },
+                        {
+                            q: "What must you write to use gRPC effectively across different microservices?",
+                            opts: [
+                                "A Swagger UI file",
+                                "A JSON Schema mapping",
+                                "A language-agnostic IDL file (.proto)",
+                                "A Bash script for data parsing",
+                            ],
+                            correct: 2,
+                            explain:
+                                "Protocol Buffer files (.proto) explicitly define message types and RPC methods, allowing auto-generation of typed clients in Go, Java, Python, etc.",
+                        },
+                    ],
+                },
+                summary: {
+                    next: "quiz",
+                    qs: [
+                        {
+                            q: "What happens if a team dictates 'All services must only communicate via asynchronous events'?",
+                            opts: [
+                                "The system achieves perfect availability instantly",
+                                "The team violates 'No one-size-fits-all', drastically complicating simple tasks",
+                                "REST APIs will run faster",
+                                "Temporal coupling will increase",
+                            ],
+                            correct: 1,
+                            explain:
+                                "Dogmatically choosing one pattern leads to extreme over-engineering for things that just need a simple sync HTTP query.",
+                        },
+                        {
+                            q: "If operational simplicity and ease of debugging are your absolute top priorities, which pattern favors this?",
+                            opts: [
+                                "Event-Driven Pub-Sub",
+                                "Synchronous REST APIs",
+                                "Shared Data Polling",
+                                "Asynchronous Reply Queues",
+                            ],
+                            correct: 1,
+                            explain:
+                                "Sync REST is easiest to follow linearly: Request goes out, Response comes back. Tracing debugging is straightforward.",
+                        },
+                        {
+                            q: "If high decoupling and massive fan-out scalability are your top priorities, which pattern favors this?",
+                            opts: [
+                                "Synchronous gRPC",
+                                "Synchronous REST",
+                                "Event-Driven publish-subscribe",
+                                "Shared Database",
+                            ],
+                            correct: 2,
+                            explain:
+                                "Event-driven pub-sub systems dynamically scale consumers without affecting the producer, leading to highly decoupled architectures.",
+                        },
+                    ],
+                },
+            };
+
+            const FINAL_Q = [
+                ...Object.values(GATE).flatMap((g) => g.qs),
+                {
+                    q: "In the system diagram, which component acts as the central hub connecting all patterns?",
+                    opts: [
+                        "The API Gateway",
+                        "The Message Broker",
+                        "The Central Switch / Router",
+                        "The Database",
+                    ],
+                    correct: 2,
+                    explain:
+                        "The Central Switch routes between the four pattern types (Shared Data, Event-Driven, Async, Sync HTTP) — it's the architectural hub of the overview diagram.",
+                },
+                {
+                    q: "What is the core principle behind choosing a microservice communication pattern?",
+                    opts: [
+                        "Always use REST",
+                        "Select based on coupling, latency, and scalability needs — no one-size-fits-all",
+                        "Async is always better",
+                        "gRPC for all services",
+                    ],
+                    correct: 1,
+                    explain:
+                        "The correct pattern depends on: whether you need an immediate response, how many consumers exist, what latency you can tolerate, and your operational complexity budget.",
+                },
+                {
+                    q: "Why is serialization needed in microservice communication?",
+                    opts: [
+                        "To compress data",
+                        "To convert data structures into a transmittable format",
+                        "To encrypt messages",
+                        "To reduce memory",
+                    ],
+                    correct: 1,
+                    explain:
+                        "Services in different processes cannot share memory references. Data must be serialized (JSON/binary) to cross the network boundary.",
+                },
+                {
+                    q: "What is Temporal Coupling?",
+                    opts: [
+                        "Deploying simultaneously",
+                        "Caller and callee must be alive at the same time",
+                        "Sharing a DB schema",
+                        "Fixed response times",
+                    ],
+                    correct: 1,
+                    explain:
+                        "If the downstream service is down when the upstream makes a sync request, the upstream fails too — both must be alive simultaneously.",
+                },
+                {
+                    q: "Which async pattern uses Correlation IDs?",
+                    opts: [
+                        "Shared Data",
+                        "Event-Driven",
+                        "Async Request-Response",
+                        "REST",
+                    ],
+                    correct: 2,
+                    explain:
+                        "Correlation IDs link async responses to their original requests — essential in Async Request-Response where responses arrive out-of-band.",
+                },
+                {
+                    q: "Main drawback of Shared Data pattern?",
+                    opts: [
+                        "High coupling",
+                        "Too complex",
+                        "High latency from polling",
+                        "Cannot handle large data",
+                    ],
+                    correct: 2,
+                    explain:
+                        "The reader polls on an interval to detect new data, introducing delay between write time and processing time.",
+                },
+                {
+                    q: "'CreateShipment' event name is wrong because:",
+                    opts: [
+                        "Wrong format",
+                        "Events are past-tense ('ShipmentCreated'), not commands",
+                        "Too long",
+                        "Missing timestamp",
+                    ],
+                    correct: 1,
+                    explain:
+                        "Events describe facts that already happened. 'CreateShipment' is a command. Use 'ShipmentCreated' to respect inversion of responsibility.",
+                },
+                {
+                    q: "Best pattern for immediate user-facing payment confirmation?",
+                    opts: [
+                        "Event-Driven",
+                        "Shared Data",
+                        "Synchronous REST/gRPC",
+                        "Async queue",
+                    ],
+                    correct: 2,
+                    explain:
+                        "When the user actively waits for a result before the UI can proceed, synchronous communication is correct.",
+                },
+                {
+                    q: "gRPC advantage over REST for internal services?",
+                    opts: [
+                        "Human-readable JSON",
+                        "Binary Protocol Buffers + HTTP/2 + polyglot IDL = 5x faster",
+                        "Simpler setup",
+                        "Better browser support",
+                    ],
+                    correct: 1,
+                    explain:
+                        "gRPC's binary encoding, HTTP/2 multiplexing, and IDL-generated clients make it significantly faster for internal service-to-service communication.",
+                },
+            ];
+
+            /* ── QUIZ HELPER ───────────────────────────────────── */
+            function buildQuiz(container, questions, prefix, onAllCorrect) {
+                let correctCount = 0;
+                let answeredCorrectly = new Set();
+
+                questions.forEach((q, qi) => {
+                    const card = document.createElement("div");
+                    card.className = "quiz-card";
+                    card.innerHTML = `<div class="quiz-q"><span class="quiz-q-num">Q${qi + 1}</span>${q.q}</div>
+      <div class="quiz-options" id="${prefix}-opts-${qi}">${q.opts.map((o, oi) => `<button class="quiz-btn" data-qi="${qi}" data-oi="${oi}"><span class="quiz-letter">${String.fromCharCode(65 + oi)}.</span>${o}</button>`).join("")}</div>
+      <div class="quiz-feedback" id="${prefix}-fb-${qi}"></div>`;
+                    container.appendChild(card);
+                });
+
+                container.addEventListener("click", (e) => {
+                    const btn = e.target.closest(".quiz-btn");
+                    if (!btn) return;
+                    const qi = +btn.dataset.qi,
+                        oi = +btn.dataset.oi,
+                        q = questions[qi];
+
+                    if (answeredCorrectly.has(qi)) return;
+
+                    const optsEl = container.querySelector(
+                        `#${prefix}-opts-${qi}`,
+                    );
+                    const fbEl = container.querySelector(`#${prefix}-fb-${qi}`);
+
+                    optsEl.querySelectorAll(".quiz-btn").forEach((b) => {
+                        b.disabled = true;
+                        b.style.opacity = "0.35";
+                    });
+
+                    const ok = oi === q.correct;
+                    btn.style.opacity = "1";
+                    btn.classList.add(ok ? "correct" : "wrong");
+
+                    fbEl.className = `quiz-feedback show ${ok ? "correct" : "wrong"}`;
+                    fbEl.innerHTML = `<span class="fb-label ${ok ? "ok" : "bad"}">${ok ? "✓ Correct." : "✗ Incorrect."}</span><span class="fb-text">${q.explain}</span>`;
+
+                    if (!ok) {
+                        const rb =
+                            optsEl.querySelectorAll(".quiz-btn")[q.correct];
+                        rb.style.opacity = "1";
+                        rb.classList.add("correct");
+
+                        setTimeout(() => {
+                            optsEl
+                                .querySelectorAll(".quiz-btn")
+                                .forEach((b) => {
+                                    b.disabled = false;
+                                    b.style.opacity = "";
+                                    b.classList.remove("correct", "wrong");
+                                });
+                            fbEl.className = "quiz-feedback";
+                        }, 2000);
+                    } else {
+                        answeredCorrectly.add(qi);
+                        correctCount++;
+                        if (correctCount === questions.length && onAllCorrect) {
+                            onAllCorrect();
+                        }
+                    }
+                });
+            }
+
+            /* ── NAVIGATION + LOCK ─────────────────────────────── */
+            const unlocked = new Set(["intro", "overview-diagram", "video"]);
+            const viewed = new Set();
+
+            function getAllSects() {
+                return Array.from(
+                    document.querySelectorAll(".content-section"),
+                );
+            }
+            function getAllBtns() {
+                return Array.from(document.querySelectorAll(".sidebar-btn"));
+            }
+
+            function updateProgress() {
+                const excluded = ["overview-diagram", "video", "quiz"];
+                let sections = getAllSects().filter(
+                    (s) => !excluded.includes(s.id),
+                );
+                const total = sections.length;
+                let validViewed = 0;
+                viewed.forEach((id) => {
+                    if (!excluded.includes(String(id))) validViewed++;
+                });
+                const p = total ? Math.round((validViewed / total) * 100) : 0;
+                const fill = document.getElementById("progress-fill");
+                const pct = document.getElementById("progress-pct");
+                if (fill) fill.style.width = p + "%";
+                if (pct) pct.textContent = p + "%";
+            }
+
+            function updateSidebar(currentId) {
+                getAllBtns().forEach((b) => {
+                    const t = b.dataset.target;
+                    b.classList.remove("active", "done", "locked");
+                    if (t === currentId) {
+                        b.classList.add("active");
+                        return;
+                    }
+                    if (!unlocked.has(t)) {
+                        b.classList.add("locked");
+                        return;
+                    }
+                    if (viewed.has(t)) b.classList.add("done");
+                });
+            }
+
+            function show(id) {
+                if (!unlocked.has(id)) return;
+                getAllSects().forEach((s) => s.classList.remove("visible"));
+                const sect = document.getElementById(id);
+                if (sect) {
+                    sect.classList.add("visible");
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+                viewed.add(id);
+                updateSidebar(id);
+                updateProgress();
+            }
+
+            /* ── GATE INJECTION ────────────────────────────────── */
+            function injectGates() {
+                Object.entries(GATE).forEach(([moduleId, g]) => {
+                    const sect = document.getElementById(moduleId);
+                    if (!sect) return;
+                    const el = document.createElement("div");
+                    el.className = "module-gate";
+                    el.innerHTML = `
+      <div class="module-gate-header" style="margin-bottom:20px;"><span class="gate-icon">🔐</span>CHECKPOINT — Answer all 3 questions correctly to unlock the next module</div>
+      <div class="quiz-wrap" id="gate-app-${moduleId}" style="padding:20px;margin-bottom:20px;border:none;background:transparent;"></div>
+      <div style="text-align:right;">
+        <button class="gate-next-btn" id="gate-next-${moduleId}" data-next="${g.next}" style="display:none;">
+          Unlock: ${g.next.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())} →
+        </button>
+      </div>`;
+                    sect.appendChild(el);
+
+                    const container = el.querySelector(`#gate-app-${moduleId}`);
+                    buildQuiz(container, g.qs, `g-${moduleId}`, () => {
+                        const nextBtn = el.querySelector(
+                            `#gate-next-${moduleId}`,
+                        );
+                        nextBtn.style.display = "inline-block";
+                        nextBtn.classList.add("show");
+
+                        unlocked.add(g.next);
+                        updateSidebar(g.next);
+
+                        nextBtn.addEventListener("click", () => show(g.next), {
+                            once: true,
+                        });
+                    });
+                });
+            }
+
+            /* ── INJECT EXTRA SECTIONS ─────────────────────────── */
+            function injectExtraSections() {
+                const ca = document.querySelector(".content-area");
+                if (!ca) return;
+
+                // Video
+                const videoSect = document.createElement("section");
+                videoSect.id = "video";
+                videoSect.className = "content-section";
+                videoSect.innerHTML = `
+    <div class="section-label"><span class="section-label-dot"></span>Resource · Video</div>
+    <h1 class="section-title">Short Video</h1>
+    <p class="section-lead">A concise visual walkthrough to anchor your understanding of microservice communication patterns.</p>
+    <div class="video-card">
+      <div class="video-thumb" data-vid="MvUpdD3D2jY" style="background:linear-gradient(135deg,rgba(10,14,31,0.9),rgba(30,20,60,0.9));min-height:200px;display:flex;align-items:center;justify-content:center;">
+        <button class="video-play" type="button" aria-label="Play">▶</button>
+      </div>
+      <div class="video-info"><h3>Microservice Communication Patterns</h3><p>ByteByteGo — concise visual overview · ~8 min</p></div>
+    </div>`;
+                videoSect
+                    .querySelector(".video-thumb")
+                    .addEventListener("click", function () {
+                        const id = this.dataset.vid;
+                        const f = document.createElement("iframe");
+                        f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+                        f.className = "video-iframe";
+                        f.allow = "autoplay; encrypted-media";
+                        f.allowFullscreen = true;
+                        this.replaceWith(f);
+                    });
+                ca.appendChild(videoSect);
+
+                // Final Quiz
+                const quizSect = document.createElement("section");
+                quizSect.id = "quiz";
+                quizSect.className = "content-section";
+                quizSect.innerHTML = `
+    <div class="section-label"><span class="section-label-dot"></span>Final Quiz</div>
+    <h1 class="section-title">Final Knowledge Check</h1>
+    <p class="section-lead">${FINAL_Q.length} questions across all modules.</p>
+    <div class="quiz-wrap" id="quiz-app"><p class="quiz-heading">Knowledge Check</p><p class="quiz-sub">${FINAL_Q.length} questions · Select an answer to reveal the explanation</p></div>`;
+                ca.appendChild(quizSect);
+                buildQuiz(quizSect.querySelector("#quiz-app"), FINAL_Q, "fq");
+            }
+
+            /* ── AI CHATBOX ────────────────────────────────────── */
+            function initChatbox() {
+                const root = document.querySelector("[data-chatbox-root]");
+                const toggle = root?.querySelector("[data-chatbox-toggle]");
+                const close = root?.querySelector("[data-chatbox-close]");
+                const panel = root?.querySelector("[data-chatbox-panel]");
+                const msgBox = root?.querySelector("[data-chatbox-messages]");
+                const form = root?.querySelector("[data-chatbox-form]");
+                const input = form?.querySelector("input");
+                if (!root) return;
+
+                let msgs = [
+                    {
+                        role: "assistant",
+                        content:
+                            "Hi! Ask me anything about microservice communication patterns covered in this course.",
+                    },
+                ];
+
+                const esc = (t) =>
+                    t
+                        .replaceAll("&", "&amp;")
+                        .replaceAll("<", "&lt;")
+                        .replaceAll(">", "&gt;");
+                const render = () => {
+                    msgBox.innerHTML = msgs
+                        .map(
+                            (m) =>
+                                `<article class="chat-msg chat-msg-${m.role}"><p>${esc(m.content)}</p></article>`,
+                        )
+                        .join("");
+                    msgBox.scrollTop = msgBox.scrollHeight;
+                };
+
+                toggle?.addEventListener("click", () => {
+                    const open = !root.classList.contains("is-open");
+                    root.classList.toggle("is-open", open);
+                    panel.setAttribute("aria-hidden", String(!open));
+                    toggle.setAttribute("aria-expanded", String(open));
+                    if (open) setTimeout(() => input?.focus(), 20);
+                });
+                close?.addEventListener("click", () => {
+                    root.classList.remove("is-open");
+                    panel.setAttribute("aria-hidden", "true");
+                });
+
+                form?.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    const text = input.value.trim();
+                    if (!text) return;
+                    input.value = "";
+                    msgs.push({ role: "user", content: text });
+                    msgs.push({ role: "assistant", content: "Thinking..." });
+                    render();
+                    try {
+                        const r = await fetch("/api/chat", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                messages: msgs.filter(
+                                    (m) => m.content !== "Thinking...",
+                                ),
+                                maxContextChunks: 6,
+                            }),
+                        });
+                        const d = await r.json();
+                        msgs.pop();
+                        msgs.push({
+                            role: "assistant",
+                            content: r.ok
+                                ? d.answer || "No answer."
+                                : d?.error?.message || "Error.",
+                        });
+                    } catch {
+                        msgs.pop();
+                        msgs.push({
+                            role: "assistant",
+                            content: "Network error.",
+                        });
+                    }
+                    render();
+                });
+                render();
+            }
+
+            /* ── BOOT ──────────────────────────────────────────── */
+            document.addEventListener("DOMContentLoaded", () => {
+                injectExtraSections();
+                injectGates();
+
+                getAllBtns().forEach((b) => {
+                    b.addEventListener("click", () => show(b.dataset.target));
+                    if (!unlocked.has(b.dataset.target))
+                        b.classList.add("locked");
+                });
+                document
+                    .getElementById("start-btn")
+                    ?.addEventListener("click", () => show("intro"));
+                document.querySelectorAll(".top-nav-link").forEach((link) => {
+                    link.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        const target = link.dataset.target;
+                        if (target) {
+                            unlocked.add(target);
+                            show(target);
+                            updateSidebar(target);
+                        }
+                    });
+                });
+
+                document.querySelectorAll(".free-nav-btn").forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        const target = btn.dataset.next;
+                        if (target) {
+                            unlocked.add(target);
+                            show(target);
+                            updateSidebar(target);
+                        }
+                    });
+                });
+
+                document.querySelectorAll(".free-nav-btn").forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        const target = btn.dataset.next;
+                        if (target) {
+                            unlocked.add(target);
+                            show(target);
+                            updateSidebar(target);
+                        }
+                    });
+                });
+
+                initChatbox();
+                show("intro");
+            });
+        </script>
+    </body>
+</html>

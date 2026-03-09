@@ -12,7 +12,6 @@ import ConnectorLine from "./atoms/ConnectorLine.astro";
 ---
 
 <div class="diagram-frame">
-
     <div class="relative grid grid-cols-1 lg:grid-cols-3 gap-12 mb-20 z-10">
         <!-- Top Row -->
         <PatternSharedData />
@@ -41,22 +40,22 @@ import ConnectorLine from "./atoms/ConnectorLine.astro";
             <div class="absolute inset-0 pointer-events-none z-0">
                 <!-- To Shared Data (Top Left) - Yellow -->
                 <div
-                    class="absolute top-[20%] left-[15%] -translate-x-1/2 -translate-y-1/2"
+                    class="absolute top-[30%] left-[15%] -translate-x-1/2 -translate-y-1/2"
                 >
                     <ConnectorLine
-                        width={250}
+                        width={280}
                         isAnimate={true}
                         color="#0ea5a4"
-                        rotate={210}
+                        rotate={200}
                     />
                 </div>
 
                 <!-- To Event Driven (Top Center) - Green -->
                 <div
-                    class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    class="absolute top-[10%] left-1/2 -translate-x-1/2 -translate-y-1/2"
                 >
                     <ConnectorLine
-                        width={95}
+                        width={110}
                         isAnimate={true}
                         color="#0ea5a4"
                         rotate={-90}
@@ -65,25 +64,25 @@ import ConnectorLine from "./atoms/ConnectorLine.astro";
 
                 <!-- To Async (Top Right) - Pink -->
                 <div
-                    class="absolute top-[20%] right-[15%] translate-x-1/2 -translate-y-1/2"
+                    class="absolute top-[30%] right-[10%] translate-x-1/2 -translate-y-1/2"
                 >
                     <ConnectorLine
-                        width={250}
+                        width={280}
                         isAnimate={true}
                         color="#0ea5a4"
-                        rotate={-30}
+                        rotate={-20}
                     />
                 </div>
 
                 <!-- To Sync HTTP (Bottom Right) - Pink -->
                 <div
-                    class="absolute bottom-[30%] right-[15%] translate-x-1/2 translate-y-1/2"
+                    class="absolute bottom-[30%] right-[10%] translate-x-1/2 translate-y-1/2"
                 >
                     <ConnectorLine
-                        width={150}
+                        width={180}
                         isAnimate={true}
                         color="#f59e0b"
-                        rotate={30}
+                        rotate={20}
                     />
                 </div>
             </div>
@@ -99,8 +98,12 @@ import ConnectorLine from "./atoms/ConnectorLine.astro";
         <div class="hidden lg:block"></div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative">
-        <LegendList />
-        <PatternSyncHTTP />
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 relative items-end">
+        <div class="col-span-2">
+            <LegendList />
+        </div>
+        <div class="col-span-2 col-start-4">
+            <PatternSyncHTTP />
+        </div>
     </div>
 </div>

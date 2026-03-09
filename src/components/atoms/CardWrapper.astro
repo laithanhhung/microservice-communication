@@ -12,9 +12,7 @@ interface Props {
 const { title, color = "blue", class: className = "", contentId } = Astro.props;
 ---
 
-<div
-    class={`group relative surface-card pt-10 ${className}`}
->
+<div class={`group relative surface-card pt-10 ${className}`}>
     {
         title && (
             <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -22,8 +20,6 @@ const { title, color = "blue", class: className = "", contentId } = Astro.props;
             </div>
         )
     }
-
-    {contentId && <HoverTooltip contentId={contentId} />}
 
     <div
         class="w-full h-full flex flex-col items-center justify-center relative z-0"

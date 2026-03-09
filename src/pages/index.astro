@@ -1,7 +1,7 @@
 ---
-import SystemDiagram from "../components/SystemDiagram.astro";
-import ProjectChatbox from "../components/ProjectChatbox.astro";
 import "../styles/global.css";
+import CardWrapper from "../components/atoms/CardWrapper.astro";
+import Icon from "../components/atoms/Icon.astro";
 ---
 
 <!doctype html>
@@ -9,429 +9,212 @@ import "../styles/global.css";
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Microservice Communication Patterns</title>
+        <title>Microservice Communication Patterns | Course</title>
+        <meta
+            name="description"
+            content="Interactive mini-course on Microservice Communication Patterns for distributed systems engineers."
+        />
         <link rel="icon" type="image/png" href="/logo.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
             rel="stylesheet"
         />
+        <style>
+            .landing-hero {
+                text-align: center;
+                padding: 120px 20px 80px;
+            }
+            .landing-title {
+                font-size: clamp(40px, 8vw, 72px);
+                font-weight: 700;
+                margin-bottom: 24px;
+                background: linear-gradient(135deg, var(--cyan), var(--purple));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .landing-subtitle {
+                font-size: 20px;
+                color: var(--muted);
+                max-width: 600px;
+                margin: 0 auto 48px;
+                line-height: 1.6;
+            }
+            .primary-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+                padding: 16px 36px;
+                border-radius: 999px;
+                background: var(--accent);
+                color: white;
+                font-size: 18px;
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.3s;
+                box-shadow: 0 0 24px rgba(99, 102, 241, 0.4);
+            }
+            .primary-btn:hover {
+                background: #5558e6;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 32px rgba(99, 102, 241, 0.6);
+            }
+        </style>
     </head>
-    <body class="min-h-screen">
-        <div class="page-orb page-orb--teal"></div>
-        <div class="page-orb page-orb--amber"></div>
-        <div class="page-grid"></div>
-        <main class="page-shell">
-            <nav class="topbar">
-                <div class="brand">
-                    <span class="brand-dot"></span>
+    <body class="bg-[#030712] text-white">
+        <div class="flex flex-col min-h-screen">
+            <!-- TOPBAR -->
+            <nav
+                class="topbar sticky top-0 z-50 backdrop-blur-md bg-[#050510]/80 border-b border-[#2e3049]"
+            >
+                <div class="topbar-brand">
+                    <img
+                        src="/logo.png"
+                        alt="Logo"
+                        class="w-8 h-8 object-contain"
+                    />
                     <span>Microservice Patterns</span>
                 </div>
-                <div class="nav-links">
-                    <a href="#hero">Hero</a>
-                    <a href="#theory">Theory</a>
-                    <a href="#diagram">Patterns</a>
-                    <a href="#shorts">Short Video</a>
-                </div>
-                <a class="btn btn-primary" href="#diagram">View Diagram</a>
             </nav>
 
-            <section id="hero" class="hero reveal">
-                <div class="hero-copy">
-                    <span class="eyebrow">Chapter 10 · Architecture</span>
-                    <h1>
-                        Introduction to Microservices Communication
-                        <span class="accent-text">Patterns</span>
-                    </h1>
-                    <p>
-                        A modern, high-clarity guide for engineers mapping
-                        synchronous, asynchronous, and event-driven strategies
-                        in distributed systems.
+            <main
+                class="flex-1 w-full max-w-6xl mx-auto flex flex-col items-center py-10"
+            >
+                <section class="landing-hero relative z-10 w-full">
+                    <!-- Glowing Background Effect -->
+                    <div
+                        class="absolute inset-0 top-[-20%] pointer-events-none z-[-1] opacity-50
+                        bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))]
+                        from-purple-900/20 via-[#030712] to-transparent"
+                    >
+                    </div>
+
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm font-mono font-bold mb-8 shadow-sm"
+                    >
+                        <span
+                            class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"
+                        ></span>
+                        v2.0 Interactive Edition
+                    </div>
+
+                    <h1 class="landing-title">Master Microservices</h1>
+
+                    <p class="landing-subtitle">
+                        Deep dive into synchronous, asynchronous, and
+                        event-driven communication patterns in distributed
+                        systems through interactive diagrams and gated lessons.
                     </p>
-                    <div class="hero-actions">
-                        <a class="btn btn-primary" href="#diagram">
-                            View Diagram
-                        </a>
-                        <a class="btn btn-ghost" href="#theory">
-                            Visual Guide
-                        </a>
-                    </div>
-                    <div class="hero-metrics">
-                        <div class="reveal stagger-1">
-                            <strong>4</strong>
-                            <span>core patterns</span>
-                        </div>
-                        <div class="reveal stagger-2">
-                            <strong>2</strong>
-                            <span>communication modes</span>
-                        </div>
-                        <div class="reveal stagger-3">
-                            <strong>8+</strong>
-                            <span>visual callouts</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-panel reveal stagger-1">
-                    <div class="hero-panel-header">
-                        <span>Key Signals</span>
-                        <span class="chip">Live</span>
-                    </div>
-                    <ul class="hero-panel-list">
-                        <li class="reveal stagger-1">
-                            <span class="dot dot-teal"></span>
-                            <div>
-                                <strong>Reliability</strong>
-                                <p>Resilience through decoupling.</p>
-                            </div>
-                        </li>
-                        <li class="reveal stagger-2">
-                            <span class="dot dot-amber"></span>
-                            <div>
-                                <strong>Latency</strong>
-                                <p>Choose sync paths for speed.</p>
-                            </div>
-                        </li>
-                        <li class="reveal stagger-3">
-                            <span class="dot dot-coral"></span>
-                            <div>
-                                <strong>Scalability</strong>
-                                <p>Events unlock elastic growth.</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="hero-panel-footer">
-                        <span>Updated for clarity-first docs</span>
-                        <button class="btn btn-ghost" type="button">
-                            Export Notes
-                        </button>
-                    </div>
-                </div>
-            </section>
 
-            <section id="theory" class="section reveal">
-                <div class="section-head">
-                    <div>
-                        <p class="eyebrow">Theory & Core Concepts</p>
-                        <h2>Understand the tradeoffs before you choose.</h2>
-                    </div>
-                    <p>
-                        Synchronous and asynchronous communication solve
-                        different problems. Use the right strategy for the right
-                        workload.
-                    </p>
-                </div>
-                <div class="section-surface">
-                    <div class="info-grid">
-                        <article class="info-card reveal stagger-1">
-                        <div class="info-icon info-icon-teal">S</div>
-                        <h3>Synchronous Communication</h3>
-                        <p>
-                            Tight feedback loops with predictable response
-                            cycles. Ideal for request-response APIs and short
-                            workflows.
-                        </p>
-                        </article>
-                        <article class="info-card reveal stagger-2">
-                        <div class="info-icon info-icon-amber">A</div>
-                        <h3>Asynchronous Communication</h3>
-                        <p>
-                            Messages queue up for later processing. Boosts
-                            resilience and unlocks scale, with extra
-                            observability needs.
-                        </p>
-                        </article>
-                    </div>
-                </div>
-            </section>
+                    <a
+                        href="/learn"
+                        class="primary-btn hover:scale-105 active:scale-95 duration-200"
+                    >
+                        Initiate Sequence
+                        <svg
+                            class="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </section>
 
-            <section id="diagram" class="section reveal">
-                <div class="section-head">
-                    <div>
-                        <p class="eyebrow">Communication Patterns</p>
-                        <h2>Visual guide for microservice choreography.</h2>
-                    </div>
-                    <p>
-                        Explore shared data, message brokers, async queues, and
-                        synchronous HTTP paths in one cohesive map.
-                    </p>
-                </div>
-                <div class="section-surface reveal stagger-1">
-                    <SystemDiagram />
-                </div>
-            </section>
-
-            <section id="examples" class="section reveal">
-                <div class="section-head">
-                    <div>
-                        <p class="eyebrow">Examples</p>
-                        <h2>Concrete code snippets for each pattern.</h2>
-                    </div>
-                    <p>
-                        Short, real-world examples to help readers connect the
-                        visuals to implementation choices.
-                    </p>
-                </div>
-                <div class="example-grid">
-                    <article class="example-card reveal stagger-1">
-                        <div class="example-head">
-                            <div>
-                                <h3>Request-Response over HTTP</h3>
-                                <p>Direct API calls with resilience policies.</p>
-                            </div>
-                            <span class="tag tag-teal">Sync</span>
-                        </div>
-                        <div class="code-block">
-                            <div class="code-meta">
-                                <span class="dot dot-coral"></span>
-                                <span class="dot dot-amber"></span>
-                                <span class="dot dot-teal"></span>
-                                <span>http-service.cs</span>
-                            </div>
-                            <pre><code>app.MapGet("/users/&#123;id&#125;", (int id) =>
-    Results.Ok(new &#123; Id = id, Name = "Alice" &#125;));
-
-var retry = Policy
-    .Handle&lt;HttpRequestException&gt;()
-    .WaitAndRetryAsync(3, i => TimeSpan.FromMilliseconds(200 * i));
-
-var res = await retry.ExecuteAsync(() =>
-    http.GetAsync($"https://api.example.com/users/&#123;id&#125;"));
-res.EnsureSuccessStatusCode();</code></pre>
-                        </div>
-                    </article>
-
-                    <article class="example-card reveal stagger-2">
-                        <div class="example-head">
-                            <div>
-                                <h3>Async Request-Response (Queues)</h3>
-                                <p>Tickets + workers with idempotency.</p>
-                            </div>
-                            <span class="tag tag-amber">Async</span>
-                        </div>
-                        <div class="code-block">
-                            <div class="code-meta">
-                                <span class="dot dot-coral"></span>
-                                <span class="dot dot-amber"></span>
-                                <span class="dot dot-teal"></span>
-                                <span>queue-flow.cs</span>
-                            </div>
-                            <pre><code>await sender.SendMessageAsync(
-    new ServiceBusMessage("&#123;\"task\":\"resize\"&#125;"));
-
-var processor = client.CreateProcessor("tasks");
-processor.ProcessMessageAsync += async args => &#123;
-    var messageId = args.Message.MessageId;
-    if (await store.ExistsAsync(messageId)) return;
-    await handler.RunAsync(args.Message.Body);
-    await store.MarkDoneAsync(messageId);
-    await args.CompleteMessageAsync(args.Message);
-&#125;;</code></pre>
-                        </div>
-                    </article>
-
-                    <article class="example-card reveal stagger-2">
-                        <div class="example-head">
-                            <div>
-                                <h3>Event-Driven (Topics)</h3>
-                                <p>Publish once, multiple consumers react.</p>
-                            </div>
-                            <span class="tag tag-teal">Events</span>
-                        </div>
-                        <div class="code-block">
-                            <div class="code-meta">
-                                <span class="dot dot-coral"></span>
-                                <span class="dot dot-amber"></span>
-                                <span class="dot dot-teal"></span>
-                                <span>event-bus.cs</span>
-                            </div>
-                            <pre><code>public record OrderCreated(int OrderId);
-await bus.Publish(new OrderCreated(123));
-
-public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
-    public Task Consume(ConsumeContext&lt;OrderCreated&gt; ctx) =>
-        NotifyShipping(ctx.Message.OrderId);
-&#125;</code></pre>
-                        </div>
-                    </article>
-
-                    <article class="example-card reveal stagger-3">
-                        <div class="example-head">
-                            <div>
-                                <h3>Shared Data (Files/DB)</h3>
-                                <p>Coordinate via shared storage.</p>
-                            </div>
-                            <span class="tag tag-coral">Shared</span>
-                        </div>
-                        <div class="code-block">
-                            <div class="code-meta">
-                                <span class="dot dot-coral"></span>
-                                <span class="dot dot-amber"></span>
-                                <span class="dot dot-teal"></span>
-                                <span>shared-db.cs</span>
-                            </div>
-                            <pre><code>context.Ledger.Add(new LedgerEntry &#123;
-    Type = "credit", Amount = 100
-&#125;);
-await context.SaveChangesAsync();
-
-var recent = await context.Ledger
-    .Where(x => x.CreatedAt > DateTime.UtcNow.AddDays(-1))
-    .ToListAsync();</code></pre>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <section id="tradeoffs" class="section reveal">
-                <div class="section-head">
-                    <div>
-                        <p class="eyebrow">Trade-offs</p>
-                        <h2>When to choose sync vs async.</h2>
-                    </div>
-                    <p>
-                        Use synchronous calls for user-facing, low-latency
-                        actions. Use async workflows when work is long-running,
-                        can be retried, or needs to absorb spikes.
-                    </p>
-                </div>
-                <div class="section-surface">
-                    <div class="tradeoff-grid">
-                        <div class="tradeoff-card">
-                            <h3>Pick Sync When</h3>
-                            <ul>
-                                <li>Immediate response is required.</li>
-                                <li>Latency budgets are tight.</li>
-                                <li>Failures can be surfaced to the caller.</li>
-                            </ul>
-                        </div>
-                        <div class="tradeoff-card">
-                            <h3>Pick Async When</h3>
-                            <ul>
-                                <li>Work can be deferred or retried.</li>
-                                <li>Spiky traffic must be smoothed.</li>
-                                <li>Loose coupling is more important.</li>
-                            </ul>
-                        </div>
-                        <div class="tradeoff-card">
-                            <h3>Watch Outs</h3>
-                            <ul>
-                                <li>Idempotency and deduplication.</li>
-                                <li>Ordering and eventual consistency.</li>
-                                <li>Timeouts, retries, and backoff.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="shorts" class="section reveal">
-                <div class="section-head">
-                    <div>
-                        <p class="eyebrow">Learning Tabs</p>
-                        <h2>Learn faster with short video.</h2>
-                    </div>
-                    <p>
-                        Switch to the video tab for a quick recap of the key
-                        ideas.
-                    </p>
-                </div>
-                <div class="section-surface">
-                    <div class="video-grid is-single">
-                        <article class="video-card">
+                <section
+                    class="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 lg:px-0 w-full z-10"
+                >
+                    <CardWrapper
+                        title="Patterns & Best Practices"
+                        color="cyan"
+                        class="min-h-[220px]"
+                    >
+                        <div
+                            class="flex flex-col items-center justify-center text-center w-full h-full gap-4 mt-6"
+                        >
                             <div
-                                class="video-thumb"
-                                style="background-image: url('https://i.ytimg.com/vi/MvUpdD3D2jY/hqdefault.jpg')"
-                                data-youtube-id="MvUpdD3D2jY"
+                                class="w-12 h-12 bg-cyan-900/30 rounded-full flex items-center justify-center"
                             >
-                                <button
-                                    class="video-play"
-                                    type="button"
-                                    aria-label="Play video"
-                                >
-                                    Play
-                                </button>
+                                <Icon name="api" />
                             </div>
-                            <h3>Microservice Communication Styles</h3>
-                            <p>A concise overview to anchor the core patterns.</p>
-                        </article>
-                    </div>
-                </div>
-            </section>
+                            <p
+                                class="text-slate-400 text-sm leading-relaxed max-w-[200px]"
+                            >
+                                Explore comprehensive guides to architectural
+                                communication strategies.
+                            </p>
+                        </div>
+                    </CardWrapper>
 
-            <section id="reliability" class="section reveal">
-                <div class="section-head">
-                    <div>
-                        <p class="eyebrow">Reliability & Observability</p>
-                        <h2>Make failures visible and recoverable.</h2>
-                    </div>
-                    <p>
-                        Production communication requires retries, circuit
-                        breakers, dead-letter queues, and tracing to follow
-                        events across services.
-                    </p>
-                </div>
-                <div class="section-surface">
-                    <div class="reliability-grid">
-                        <div class="reliability-card">
-                            <h3>Retry + Backoff</h3>
-                            <p>Handle transient failures without overload.</p>
+                    <CardWrapper
+                        title="Interactive Architecture"
+                        color="purple"
+                        class="min-h-[220px]"
+                    >
+                        <div
+                            class="flex flex-col items-center justify-center text-center w-full h-full gap-4 mt-6"
+                        >
+                            <div
+                                class="w-12 h-12 bg-purple-900/30 rounded-full flex items-center justify-center blur-[1px]"
+                            >
+                                <Icon name="message-broker" />
+                            </div>
+                            <p
+                                class="text-slate-400 text-sm leading-relaxed max-w-[200px]"
+                            >
+                                Visualize data flow with our interactive native
+                                Astro components.
+                            </p>
                         </div>
-                        <div class="reliability-card">
-                            <h3>Circuit Breakers</h3>
-                            <p>Fail fast to prevent cascading failures.</p>
-                        </div>
-                        <div class="reliability-card">
-                            <h3>Outbox Pattern</h3>
-                            <p>Guarantee event publish with DB commits.</p>
-                        </div>
-                        <div class="reliability-card">
-                            <h3>Tracing & Metrics</h3>
-                            <p>Correlate requests across services.</p>
-                        </div>
-                    </div>
-                    <div class="code-block">
-                        <div class="code-meta">
-                            <span class="dot dot-coral"></span>
-                            <span class="dot dot-amber"></span>
-                            <span class="dot dot-teal"></span>
-                            <span>reliability.cs</span>
-                        </div>
-                        <pre><code>var retry = Policy
-    .Handle&lt;HttpRequestException&gt;()
-    .WaitAndRetryAsync(3, i => TimeSpan.FromMilliseconds(200 * i));
+                    </CardWrapper>
 
-var circuit = Policy
-    .Handle&lt;HttpRequestException&gt;()
-    .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
+                    <CardWrapper
+                        title="Gated Checkpoints"
+                        color="green"
+                        class="min-h-[220px]"
+                    >
+                        <div
+                            class="flex flex-col items-center justify-center text-center w-full h-full gap-4 mt-6"
+                        >
+                            <div
+                                class="w-12 h-12 bg-green-900/30 rounded-full flex items-center justify-center"
+                            >
+                                <svg
+                                    class="w-6 h-6 text-green-400"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <p
+                                class="text-slate-400 text-sm leading-relaxed max-w-[200px]"
+                            >
+                                Test your knowledge and unlock proceeding
+                                sections conditionally.
+                            </p>
+                        </div>
+                    </CardWrapper>
+                </section>
 
-await Policy.WrapAsync(retry, circuit)
-    .ExecuteAsync(() => http.GetAsync(url));</code></pre>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <ProjectChatbox />
-        <script>
-            const videoThumbs = document.querySelectorAll(".video-thumb");
-            videoThumbs.forEach((thumb) => {
-                const button = thumb.querySelector(".video-play");
-                button.addEventListener("click", () => {
-                    const videoId = thumb.dataset.youtubeId;
-                    if (!videoId || videoId.includes("YOUR_VIDEO_ID")) {
-                        return;
-                    }
-                    const iframe = document.createElement("iframe");
-                    iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
-                    iframe.title = "YouTube video player";
-                    iframe.allow =
-                        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-                    iframe.allowFullscreen = true;
-                    iframe.loading = "lazy";
-                    iframe.className = "video-iframe";
-                    thumb.replaceWith(iframe);
-                });
-            });
-        </script>
+                <footer
+                    class="mt-20 border-t border-slate-800 w-full text-center py-6 text-slate-500 font-mono text-xs"
+                >
+                    <p>© 2026 PRN Lab • Built with Astro & Tailwind</p>
+                </footer>
+            </main>
+        </div>
     </body>
 </html>
