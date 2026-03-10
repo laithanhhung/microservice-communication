@@ -2533,7 +2533,7 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
       <div class="module-gate-header" style="margin-bottom:20px;"><span class="gate-icon">🔐</span>CHECKPOINT — Answer all 3 questions correctly to unlock the next module</div>
       <div class="quiz-wrap" id="gate-app-${moduleId}" style="padding:20px;margin-bottom:20px;border:none;background:transparent;"></div>
       <div style="text-align:right;">
-        <button class="gate-next-btn" id="gate-next-${moduleId}" data-next="${g.next}" style="display:none;">
+        <button type="button" class="gate-next-btn" id="gate-next-${moduleId}" data-next="${g.next}" style="display:none; position:relative; z-index:50;">
           Unlock: ${g.next.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())} →
         </button>
       </div>`;
@@ -2545,7 +2545,7 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
                             `#gate-next-${moduleId}`,
                         );
                         if (nextBtn instanceof HTMLElement) {
-                            nextBtn.style.display = "inline-block";
+                            nextBtn.style.display = "inline-flex";
                             nextBtn.classList.add("show");
                         }
 
@@ -2553,12 +2553,8 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
                         updateSidebar(g.next);
 
                         if (nextBtn instanceof HTMLElement) {
-                            nextBtn.addEventListener(
-                                "click",
-                                () => show(g.next),
-                                {
-                                    once: true,
-                                },
+                            nextBtn.addEventListener("click", () =>
+                                show(g.next),
                             );
                         }
                     });
