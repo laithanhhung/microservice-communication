@@ -2495,7 +2495,7 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
 
             function updateSidebar(currentId) {
                 getAllBtns().forEach((b) => {
-                    const t = b.dataset.target;
+                    const t = b.getAttribute("data-target") || "";
                     b.classList.remove("active", "done", "locked");
                     if (t === currentId) {
                         b.classList.add("active");
@@ -2544,15 +2544,23 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
                         const nextBtn = el.querySelector(
                             `#gate-next-${moduleId}`,
                         );
-                        nextBtn.style.display = "inline-block";
-                        nextBtn.classList.add("show");
+                        if (nextBtn instanceof HTMLElement) {
+                            nextBtn.style.display = "inline-block";
+                            nextBtn.classList.add("show");
+                        }
 
                         unlocked.add(g.next);
                         updateSidebar(g.next);
 
-                        nextBtn.addEventListener("click", () => show(g.next), {
-                            once: true,
-                        });
+                        if (nextBtn instanceof HTMLElement) {
+                            nextBtn.addEventListener(
+                                "click",
+                                () => show(g.next),
+                                {
+                                    once: true,
+                                },
+                            );
+                        }
                     });
                 });
             }
@@ -2578,7 +2586,7 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
     </div>`;
                 videoSect
                     .querySelector(".video-thumb")
-                    .addEventListener("click", function () {
+                    ?.addEventListener("click", function () {
                         const id = this.dataset.vid;
                         const f = document.createElement("iframe");
                         f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
@@ -2599,7 +2607,12 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
     <p class="section-lead">${FINAL_Q.length} questions across all modules.</p>
     <div class="quiz-wrap" id="quiz-app"><p class="quiz-heading">Knowledge Check</p><p class="quiz-sub">${FINAL_Q.length} questions · Select an answer to reveal the explanation</p></div>`;
                 ca.appendChild(quizSect);
-                buildQuiz(quizSect.querySelector("#quiz-app"), FINAL_Q, "fq");
+                buildQuiz(
+                    quizSect.querySelector("#quiz-app"),
+                    FINAL_Q,
+                    "fq",
+                    undefined,
+                );
             }
 
             /* ── AI CHATBOX ────────────────────────────────────── */
@@ -2627,6 +2640,7 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
                         .replaceAll("<", "&lt;")
                         .replaceAll(">", "&gt;");
                 const render = () => {
+                    if (!msgBox) return;
                     msgBox.innerHTML = msgs
                         .map(
                             (m) =>
@@ -2639,17 +2653,18 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
                 toggle?.addEventListener("click", () => {
                     const open = !root.classList.contains("is-open");
                     root.classList.toggle("is-open", open);
-                    panel.setAttribute("aria-hidden", String(!open));
-                    toggle.setAttribute("aria-expanded", String(open));
+                    panel?.setAttribute("aria-hidden", String(!open));
+                    toggle?.setAttribute("aria-expanded", String(open));
                     if (open) setTimeout(() => input?.focus(), 20);
                 });
                 close?.addEventListener("click", () => {
                     root.classList.remove("is-open");
-                    panel.setAttribute("aria-hidden", "true");
+                    panel?.setAttribute("aria-hidden", "true");
                 });
 
                 form?.addEventListener("submit", async (e) => {
                     e.preventDefault();
+                    if (!input) return;
                     const text = input.value.trim();
                     if (!text) return;
                     input.value = "";
@@ -2693,9 +2708,9 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
                 injectGates();
 
                 getAllBtns().forEach((b) => {
-                    b.addEventListener("click", () => show(b.dataset.target));
-                    if (!unlocked.has(b.dataset.target))
-                        b.classList.add("locked");
+                    const target = b.getAttribute("data-target") || "";
+                    b.addEventListener("click", () => show(target));
+                    if (!unlocked.has(target)) b.classList.add("locked");
                 });
                 document
                     .getElementById("start-btn")
@@ -2703,7 +2718,7 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
                 document.querySelectorAll(".top-nav-link").forEach((link) => {
                     link.addEventListener("click", (e) => {
                         e.preventDefault();
-                        const target = link.dataset.target;
+                        const target = link.getAttribute("data-target");
                         if (target) {
                             unlocked.add(target);
                             show(target);
@@ -2714,18 +2729,7 @@ public class OrderConsumer : IConsumer&lt;OrderCreated&gt; &#123;
 
                 document.querySelectorAll(".free-nav-btn").forEach((btn) => {
                     btn.addEventListener("click", () => {
-                        const target = btn.dataset.next;
-                        if (target) {
-                            unlocked.add(target);
-                            show(target);
-                            updateSidebar(target);
-                        }
-                    });
-                });
-
-                document.querySelectorAll(".free-nav-btn").forEach((btn) => {
-                    btn.addEventListener("click", () => {
-                        const target = btn.dataset.next;
+                        const target = btn.getAttribute("data-next");
                         if (target) {
                             unlocked.add(target);
                             show(target);
